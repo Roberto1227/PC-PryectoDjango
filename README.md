@@ -250,8 +250,11 @@ Este es un proyecto educativo. Las contribuciones son bienvenidas.
 ## 👥 Autores
 
 -Roberto Carlos Chavez Camoos
+
 -Edwin Josue Parada Campos
+
 -Yader Enmanuel Romero Bonilla
+
 -Carlos Felipe Soto Mayorga
 
 ---
