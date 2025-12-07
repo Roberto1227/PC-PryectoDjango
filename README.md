@@ -249,7 +249,7 @@ Este es un proyecto educativo. Las contribuciones son bienvenidas.
 
 ## 👥 Autores
 
--Roberto Carlos Chavez Camoos
+-Roberto Carlos Chavez Capos
 
 -Edwin Josue Parada Campos
 
