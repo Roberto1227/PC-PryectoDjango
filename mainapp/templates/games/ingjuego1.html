@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-WBJ2PWNG');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="{% static 'img/log.png' %}" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/games/ing-modal.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/games/ing-adventure.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/games/ing-complete.css' %}" />
+  <title>English Adventure Map | EduRetoSV</title>
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBJ2PWNG"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <!-- Ventana Modal -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-content">
+        <div class="modal-bubble-container">
+          <div class="modal-bubble">
+            <div class="modal-text">
+              <h3 style="text-align:center;margin-bottom:0.5rem;">¡English Adventure Map!</h3>
+              <p style="margin-bottom:0.5rem;">
+                Explora un mapa interactivo y completa misiones en diferentes ubicaciones para aprender inglés.
+              </p>
+              <p style="margin-bottom:0.5rem;"><strong>Instrucciones:</strong></p>
+              <ul style="text-align:left;margin-left:1.5rem;margin-bottom:0.5rem;">
+                <li>Arrastra el mapa para explorar las diferentes ubicaciones (casa, tienda, biblioteca, parque, hospital).</li>
+                <li>Completa las misiones en cada ubicación para desbloquear nuevas áreas.</li>
+                <li>Hay dos tipos de misiones: completar oraciones en inglés y preguntas de opción múltiple.</li>
+                <li>Las ubicaciones se desbloquean secuencialmente, una tras otra.</li>
+                <li>Aprende vocabulario organizado por temas: lugares, comida, escuela y animales.</li>
+                <li>Completa todas las misiones para llegar al desafío final.</li>
+              </ul>
+              <p style="margin-bottom:0;">¡Explora el mapa y conviértete en un experto del inglés!</p>
+            </div>
+          </div>
+          <div class="modal-buttons">
+            <button class="modal-button" id="btn-iniciar">
+              <i class="bx bx-play-circle"></i>
+              INICIAR
+            </button>
+            <a href="{% url 'ingles' %}" class="modal-button" id="btn-volver">
+              <i class="bx bx-arrow-back"></i>
+              VOLVER
+            </a>
+          </div>
+        </div>
+        <div class="modal-personaje">
+          <img src="{% static 'img/engp3.png' %}" alt="Personaje de Inglés">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="main">
+    <div class="page-content" id="page-content">
+      <section class="section grammar-game-section">
+        <div class="container">
+          <div id="game-container" 
+               data-music-url="{% static 'assets/english/ingmusic.mp3' %}"
+               data-correct-sound-url="{% static 'assets/math/acierto.mp3' %}"
+               data-incorrect-sound-url="{% static 'assets/math/error.mp3' %}"
+               data-bg-image-url="{% static 'assets/english/bg1.png' %}"
+               data-images-base-url="{% static 'assets/english/' %}"
+               class="adventure-map-wrapper"></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const gameContainer = document.getElementById('game-container');
+      if (gameContainer) {
+        // Función para normalizar rutas - asegurar que sean absolutas con /static/
+        function normalizePath(path) {
+          if (!path) return path;
+          
+          // Si ya es absoluta y empieza con /static/, devolverla tal cual
+          if (path.startsWith('/static/')) {
+            return path;
+          }
+          
+          // Si empieza con / pero no tiene static/, agregarlo
+          if (path.startsWith('/') && !path.startsWith('/static/')) {
+            // Si empieza con /assets/, reemplazar por /static/assets/
+            if (path.startsWith('/assets/')) {
+              return '/static' + path;
+            }
+            // Si no, agregar /static antes
+            return '/static' + path;
+          }
+          
+          // Si empieza con static/ (sin /), agregar /
+          if (path.startsWith('static/')) {
+            return '/' + path;
+          }
+          
+          // Si empieza con assets/, agregar /static/
+          if (path.startsWith('assets/')) {
+            return '/static/' + path;
+          }
+          
+          // Si es relativa sin prefijo, agregar /static/assets/ (asumiendo que viene de assets/)
+          return '/static/assets/' + path.replace(/^assets\//, '');
+        }
+        
+        const musicUrl = gameContainer.getAttribute('data-music-url');
+        const correctSoundUrl = gameContainer.getAttribute('data-correct-sound-url');
+        const incorrectSoundUrl = gameContainer.getAttribute('data-incorrect-sound-url');
+        const bgImageUrl = gameContainer.getAttribute('data-bg-image-url');
+        const imagesBaseUrl = gameContainer.getAttribute('data-images-base-url');
+        
+        console.log('Rutas originales:', { musicUrl, correctSoundUrl, incorrectSoundUrl, bgImageUrl, imagesBaseUrl });
+        
+        window.gameConfig = {
+          musicUrl: normalizePath(musicUrl),
+          correctSoundUrl: normalizePath(correctSoundUrl),
+          incorrectSoundUrl: normalizePath(incorrectSoundUrl),
+          bgImageUrl: normalizePath(bgImageUrl),
+          imagesBaseUrl: normalizePath(imagesBaseUrl)
+        };
+        console.log('gameConfig configurado (normalizado):', window.gameConfig);
+      } else {
+        console.error('game-container no encontrado');
+      }
+    });
+  </script>
+  <script src="{% static 'js/progress-tracker.js' %}"></script>
+  <script src="{% static 'js/games/ing-modal.js' %}"></script>
+  <script src="{% static 'js/games/ing-adventure.js' %}"></script>
+</body>
+
+</html>
+

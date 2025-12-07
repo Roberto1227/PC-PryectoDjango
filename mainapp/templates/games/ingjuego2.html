@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-WBJ2PWNG');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="{% static 'img/log.png' %}" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/games/ing-modal.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/games/ing-detective.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/games/ing-complete.css' %}" />
+  <title>English Detective | EduRetoSV</title>
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBJ2PWNG"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <!-- Ventana Modal -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-content">
+        <div class="modal-bubble-container">
+          <div class="modal-bubble">
+            <div class="modal-text">
+              <h3 style="text-align:center;margin-bottom:0.5rem;">¡English Detective!</h3>
+              <p style="margin-bottom:0.5rem;">
+                Resuelve misterios encontrando errores gramaticales en inglés, completando oraciones y eligiendo palabras correctas.
+              </p>
+              <p style="margin-bottom:0.5rem;"><strong>Instrucciones:</strong></p>
+              <ul style="text-align:left;margin-left:1.5rem;margin-bottom:0.5rem;">
+                <li>Resuelve múltiples casos misteriosos con diferentes desafíos.</li>
+                <li>Encuentra palabras incorrectas en oraciones y reemplázalas.</li>
+                <li>Elige palabras correctas para completar oraciones.</li>
+                <li>Completa conversaciones (diálogos) correctamente.</li>
+                <li>Lee las explicaciones educativas después de cada respuesta.</li>
+                <li>Usa pistas si necesitas ayuda.</li>
+                <li>Completa todos los casos para resolver el misterio final.</li>
+              </ul>
+              <p style="margin-bottom:0;">¡Conviértete en un detective del inglés!</p>
+            </div>
+          </div>
+          <div class="modal-buttons">
+            <button class="modal-button" id="btn-iniciar">
+              <i class="bx bx-play-circle"></i>
+              INICIAR
+            </button>
+            <a href="{% url 'ingles' %}" class="modal-button" id="btn-volver">
+              <i class="bx bx-arrow-back"></i>
+              VOLVER
+            </a>
+          </div>
+        </div>
+        <div class="modal-personaje">
+          <img src="{% static 'img/engp3.png' %}" alt="Personaje de Inglés">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="main">
+    <div class="page-content" id="page-content">
+      <section class="section grammar-game-section">
+        <div class="container">
+          <div id="game-container" 
+               data-back-url="{% url 'ingles' %}"
+               class="detective-wrapper"></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const gameContainer = document.getElementById('game-container');
+      if (gameContainer) {
+        window.gameConfig = {
+          backUrl: gameContainer.getAttribute('data-back-url')
+        };
+      }
+    });
+  </script>
+  <script src="{% static 'js/progress-tracker.js' %}"></script>
+  <script src="{% static 'js/games/ing-modal.js' %}"></script>
+  <script src="{% static 'js/games/ing-detective.js' %}"></script>
+</body>
+
+</html>
+

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-WBJ2PWNG');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="{% static 'img/log.png' %}" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/nosotros.css' %}" />
+  <title>Nosotros | EduRetoSV</title>
+  <style>
+    /* Estilos para el menú de usuario */
+    .user-menu {
+      position: relative;
+    }
+    
+    .user-menu-trigger {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.5rem;
+      transition: background 0.3s;
+    }
+    
+    .user-menu-trigger:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .user-menu-trigger img,
+    .user-avatar {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgb(42, 58, 107);
+      color: #fff;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    
+    .user-avatar {
+      text-transform: uppercase;
+    }
+    
+    .user-menu-trigger span {
+      color: #fff;
+      font-weight: 500;
+      text-transform: none;
+    }
+    
+    .user-menu-trigger i {
+      color: #fff;
+      font-size: 1.2rem;
+    }
+    
+    .user-menu-dropdown {
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      right: 0;
+      background: rgb(42, 58, 107);
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      min-width: 200px;
+      display: none;
+      z-index: 10000;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(-10px) scale(0.95);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+    }
+    
+    .user-menu-dropdown.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: all;
+    }
+    
+    .user-menu-dropdown .dropdown-item {
+      transform: translateX(-10px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    
+    .user-menu-dropdown.show .dropdown-item {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    
+    .user-menu-dropdown.show .dropdown-item:nth-child(1) {
+      transition-delay: 0.1s;
+    }
+    
+    .user-menu-dropdown.show .dropdown-item:nth-child(2) {
+      transition-delay: 0.2s;
+    }
+    
+    .user-menu-dropdown .dropdown-item {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      color: #fff;
+      text-decoration: none;
+      transition: background 0.3s;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      font-weight: 500;
+    }
+    
+    .user-menu-dropdown .dropdown-item:last-child {
+      border-bottom: none;
+    }
+    
+    .user-menu-dropdown .dropdown-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .user-menu-dropdown .dropdown-item i {
+      margin-right: 0.75rem;
+      font-size: 1.2rem;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBJ2PWNG"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <!--Header-->
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="{% url 'index' %}" class="navL">
+        <img src="{% static 'img/log.png' %}" alt="favicon" class="navL-img" />EduRetoSV</a>
+      <div class="navM" id="nav-menu">
+        <ul class="navList">
+          <li class="navItem">
+            <a href="{% url 'index' %}" class="navLink">Inicio</a>
+          </li>
+          <li class="navItem">
+            <a href="{% url 'materias' %}" class="navLink">Materias</a>
+          </li>
+          <li class="navItem">
+            <a href="{% url 'nosotros' %}" class="navLink active-link">Nosotros</a>
+          </li>
+          <li class="navItem">
+            {% if user.is_authenticated %}
+              <div class="user-menu">
+                <div class="user-menu-trigger">
+                  {% if user.get_imagen_perfil_url %}
+                    <img src="{{ user.get_imagen_perfil_url }}" alt="Perfil">
+                  {% else %}
+                    <div class="user-avatar">{{ user.username|first|upper }}</div>
+                  {% endif %}
+                  <span>{{ user.username }}</span>
+                  <i class="bx bx-chevron-down"></i>
+                </div>
+                <div class="user-menu-dropdown">
+                  <a href="{% url 'perfil' %}" class="dropdown-item">
+                    <i class="bx bx-user"></i>Perfil
+                  </a>
+                  <a href="{% url 'logout' %}" class="dropdown-item">
+                    <i class="bx bx-log-out"></i>Cerrar Sesión
+                  </a>
+                </div>
+              </div>
+            {% else %}
+              <a href="{% url 'login' %}" class="navLink">Registro</a>
+            {% endif %}
+          </li>
+        </ul>
+        <div class="navclose" id="nav-close">
+          <i class="bx bx-x"></i>
+        </div>
+      </div>
+      <div class="navToggle" id="nav-toggle">
+        <i class="bx bx-grid-alt"></i>
+      </div>
+    </nav>
+  </header>
+
+  <main class="main">
+    <!--SECCIÓN NOSOTROS-->
+    <section class="section nosotros-hero-section" id="historia">
+      <h2 class="sectiontitle">Nosotros</h2>
+      <div class="nosotros-hero-container container grid">
+        <div class="nosotros-hero-image">
+          <img src="{% static 'img/gusano.png' %}" alt="Gusano educativo" class="nosotros-hero-img" />
+        </div>
+        <div class="nosotros-hero-data">
+          <h2 class="nosotros-title">Nuestra Historia</h2>
+          <p class="nosotros-description">
+            A inicios de agosto del 2025, mientras realizábamos horas sociales en un centro escolar, participamos en una feria de juegos matemáticos. Allí descubrimos cómo las actividades dinámicas y lúdicas podían generar un aprendizaje significativo y captar por completo la atención de los estudiantes.
+            <br><br>
+            Motivados por esa experiencia, comenzamos a implementar juegos interactivos durante nuestras prácticas, como Kahoot y cuestionarios temáticos. El entusiasmo de los alumnos y su participación activa nos mostraron que esta metodología realmente hacía la diferencia en el aula.
+            <br><br>
+            Esa motivación nos llevó a crear nuestra propia plataforma educativa: EduRetosv, un sitio web con juegos de matemáticas, gramática, ciencias e inglés, diseñados para distintos niveles y apoyados en los recursos tecnológicos disponibles.
+            <br><br>
+            Lo que inició como una actividad escolar se convirtió en un proyecto que busca innovar en la forma de aprender, ofreciendo herramientas interactivas que hagan del estudio una experiencia más atractiva, accesible y efectiva.
+          </p>
+          <a href="{% url 'materias' %}" class="button"> Explorar Materias </a>
+        </div>
+      </div>
+    </section>
+
+    <!--SECCIÓN MISIÓN-->
+    <section class="section nosotros-mision-section" id="mision">
+      <h2 class="sectiontitle">Nuestra Misión</h2>
+      <div class="nosotros-mision-container container grid">
+        <div class="mision-card">
+          <div class="mision-icon">
+            <i class="bx bx-target-lock"></i>
+          </div>
+          <h3 class="mision-title">Objetivo Principal</h3>
+          <p class="mision-description" style="text-align: center;">
+            Transformar el aprendizaje en una experiencia divertida e interactiva, donde cada niño y niña pueda
+            descubrir el conocimiento a través del juego y la exploración.
+          </p>
+        </div>
+        <div class="mision-card">
+          <div class="mision-icon">
+            <i class="bx bx-heart"></i>
+          </div>
+          <h3 class="mision-title">Nuestro Compromiso</h3>
+          <p class="mision-description" style="text-align: center;">
+            Crear un ambiente educativo que inspire la curiosidad, fomente la creatividad y desarrolle habilidades
+            fundamentales mientras los estudiantes se divierten aprendiendo.
+          </p>
+        </div>
+        <div class="mision-card">
+          <div class="mision-icon">
+            <i class="bx bx-rocket"></i>
+          </div>
+          <h3 class="mision-title">Visión</h3>
+          <p class="mision-description" style="text-align: center;">
+            Ser la plataforma educativa líder que revolucione la forma en que los niños aprenden, combinando
+            tecnología, diversión y educación de calidad.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!--SECCIÓN VALORES-->
+    <section class="section nosotros-valores-section" id="valores">
+      <h2 class="sectiontitle">Nuestros Valores</h2>
+      <div class="nosotros-valores-container container grid">
+        <div class="valor-card">
+          <i class="bx bx-smile"></i>
+          <h3>Diversión</h3>
+          <p>Creemos que aprender debe ser divertido y emocionante para todos.</p>
+        </div>
+        <div class="valor-card">
+          <i class="bx bx-brain"></i>
+          <h3>Innovación</h3>
+          <p>Utilizamos tecnología moderna para crear experiencias educativas únicas.</p>
+        </div>
+        <div class="valor-card">
+          <i class="bx bx-group"></i>
+          <h3>Inclusión</h3>
+          <p>Un espacio donde todos los niños pueden aprender a su propio ritmo.</p>
+        </div>
+        <div class="valor-card">
+          <i class="bx bx-trophy"></i>
+          <h3>Excelencia</h3>
+          <p>Nos esforzamos por ofrecer contenido educativo de la más alta calidad.</p>
+        </div>
+      </div>
+    </section>
+
+    <!--SECCIÓN EQUIPO-->
+    <section class="section nosotros-equipo-section" id="equipo">
+      <h2 class="sectiontitle">Nuestro Equipo</h2>
+      <div class="nosotros-equipo-container container">
+        <p class="equipo-description">
+          Somos un equipo apasionado de educadores, desarrolladores y diseñadores que trabajan juntos para crear
+          experiencias de aprendizaje excepcionales. Cada miembro de nuestro equipo comparte la visión de hacer que
+          la educación sea accesible, divertida y efectiva para todos los niños.
+        </p>
+        <div class="equipo-grid grid">
+          <div class="equipo-card">
+            <div class="equipo-icon">
+              <i class="bx bx-code-alt"></i>
+            </div>
+            <h3>Desarrolladores</h3>
+            <p style="text-align: center;">
+              Estudiantes apasionados de la carrera de <strong>Técnico en Ingeniería en Sistemas</strong>, 
+              dedicados a crear soluciones tecnológicas innovadoras que transforman la educación. 
+              Con habilidades en programación, bases de datos y desarrollo web, construyen la plataforma 
+              que hace posible el aprendizaje interactivo y divertido.
+            </p>
+          </div>
+          <div class="equipo-card">
+            <div class="equipo-icon">
+              <i class="bx bx-book-reader"></i>
+            </div>
+            <h3>Educadores</h3>
+            <p style="text-align: center;">
+              <strong>Docentes especializados</strong> de diferentes instituciones educativas que aportan 
+              su experiencia pedagógica y conocimiento curricular. Su valiosa contribución asegura que 
+              cada contenido educativo esté alineado con los estándares académicos y las necesidades 
+              reales de los estudiantes.
+            </p>
+          </div>
+          <div class="equipo-card">
+            <div class="equipo-icon">
+              <i class="bx bx-palette"></i>
+            </div>
+            <h3>Diseñadores</h3>
+            <p style="text-align: center;">
+              <strong>Todos los miembros del equipo de desarrollo</strong> colaboran en el diseño de 
+              interfaces intuitivas y experiencias de usuario atractivas. Combinamos creatividad, 
+              usabilidad y estética para crear un entorno visual que inspire y motive a los estudiantes 
+              en su proceso de aprendizaje.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--FOOTER-->
+    <footer class="footer section">
+      <div class="footercontainer container grid">
+        <div>
+          <a href="{% url 'index' %}" class="footerL">
+            <img src="{% static 'img/log.png' %}" alt="logo" class="footerL-img" />
+            EduRetoSV
+          </a>
+          <p class="footerdescription">Aprende jugando, descubre tu mundo. Plataforma educativa interactiva para niños y niñas.</p>
+          <div class="footersocial">
+            <a href="https://www.facebook.com/share/1Be6FAr6G5/" target="_blank" rel="noopener noreferrer" class="footersocial-link" title="Síguenos en Facebook">
+              <i class="bx bxl-facebook"></i>
+            </a>
+            <a href="https://www.instagram.com/edu__reto/#" target="_blank" rel="noopener noreferrer" class="footersocial-link" title="Síguenos en Instagram">
+              <i class="bx bxl-instagram"></i>
+            </a>
+            <a href="https://wa.me/50370365911" target="_blank" rel="noopener noreferrer" class="footersocial-link" title="Contáctanos por WhatsApp">
+              <i class="bx bxl-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="footertitle">Materias</h3>
+          <ul class="footerlinks">
+            <li><a href="{% url 'matematica' %}" class="footerlink">Matemáticas</a></li>
+            <li><a href="{% url 'ciencia' %}" class="footerlink">Ciencias</a></li>
+            <li><a href="{% url 'gramatica' %}" class="footerlink">Gramática</a></li>
+            <li><a href="{% url 'ingles' %}" class="footerlink">Inglés</a></li>
+            <li><a href="{% url 'materias' %}" class="footerlink">Ver Todas</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="footertitle">Navegación</h3>
+          <ul class="footerlinks">
+            <li><a href="{% url 'index' %}" class="footerlink">Inicio</a></li>
+            <li><a href="{% url 'materias' %}" class="footerlink">Materias</a></li>
+            <li><a href="{% url 'nosotros' %}" class="footerlink">Nosotros</a></li>
+            <li><a href="{% url 'edureto1' %}" class="footerlink">Reto Final</a></li>
+            <li><a href="{% url 'login' %}" class="footerlink">Registro</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="footertitle">Nosotros</h3>
+          <ul class="footerlinks">
+            <li><a href="{% url 'nosotros' %}#historia" class="footerlink">Nuestra Historia</a></li>
+            <li><a href="{% url 'nosotros' %}#mision" class="footerlink">Misión</a></li>
+            <li><a href="{% url 'nosotros' %}#valores" class="footerlink">Valores</a></li>
+            <li><a href="{% url 'nosotros' %}#equipo" class="footerlink">Equipo</a></li>
+          </ul>
+        </div>
+      </div>
+      <span class="footercopy">&#169; EduRetoSV 2025. Todos los derechos reservados.</span>
+    </footer>
+
+    <!--JAVASCRIPT-->
+    <script src="{% static 'js/scrollreveal.min.js' %}"></script>
+    <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/nosotros.js' %}"></script>
+    <script>
+      // Dropdown menu functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        const userMenuTrigger = document.querySelector('.user-menu-trigger');
+        const userMenuDropdown = document.querySelector('.user-menu-dropdown');
+        
+        if (userMenuTrigger && userMenuDropdown) {
+          userMenuTrigger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            userMenuDropdown.classList.toggle('show');
+          });
+          
+          // Cerrar dropdown al hacer clic fuera
+          document.addEventListener('click', function(e) {
+            if (!userMenuTrigger.contains(e.target) && !userMenuDropdown.contains(e.target)) {
+              userMenuDropdown.classList.remove('show');
+            }
+          });
+          
+          // Cerrar dropdown al hacer clic en un enlace del dropdown
+          const dropdownItems = document.querySelectorAll('.dropdown-item');
+          dropdownItems.forEach(item => {
+            item.addEventListener('click', function() {
+              userMenuDropdown.classList.remove('show');
+            });
+          });
+        }
+      });
+    </script>
+</body>
+
+</html>
+

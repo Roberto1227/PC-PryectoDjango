@@ -1,0 +1,567 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-WBJ2PWNG');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="{% static 'img/log.png' %}" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <title>EduRetoSV</title>
+  <style>
+    /* Estilos para el menú de usuario */
+    .user-menu {
+      position: relative;
+    }
+    
+    .user-menu-trigger {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.5rem;
+      transition: background 0.3s;
+    }
+    
+    .user-menu-trigger:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .user-menu-trigger img,
+    .user-avatar {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgb(42, 58, 107);
+      color: #fff;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    
+    .user-avatar {
+      text-transform: uppercase;
+    }
+    
+    .user-menu-trigger span {
+      color: #fff;
+      font-weight: 500;
+      text-transform: none;
+    }
+    
+    .user-menu-trigger i {
+      color: #fff;
+      font-size: 1.2rem;
+    }
+    
+    .user-menu-dropdown {
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      right: 0;
+      background: rgb(42, 58, 107);
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      min-width: 200px;
+      display: none;
+      z-index: 10000;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(-10px) scale(0.95);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+    }
+    
+    .user-menu-dropdown.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: all;
+    }
+    
+    .user-menu-dropdown .dropdown-item {
+      transform: translateX(-10px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    
+    .user-menu-dropdown.show .dropdown-item {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    
+    .user-menu-dropdown.show .dropdown-item:nth-child(1) {
+      transition-delay: 0.1s;
+    }
+    
+    .user-menu-dropdown.show .dropdown-item:nth-child(2) {
+      transition-delay: 0.2s;
+    }
+    
+    .user-menu-dropdown .dropdown-item {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      color: #fff;
+      text-decoration: none;
+      transition: background 0.3s;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      font-weight: 500;
+    }
+    
+    .user-menu-dropdown .dropdown-item:last-child {
+      border-bottom: none;
+    }
+    
+    .user-menu-dropdown .dropdown-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .user-menu-dropdown .dropdown-item i {
+      margin-right: 0.75rem;
+      font-size: 1.2rem;
+      color: #fff;
+    }
+    
+    /* Estilos para mensajes */
+    .message-container {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      z-index: 10000;
+      max-width: 400px;
+      animation: slideIn 0.3s ease-out;
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    
+    .message-alert {
+      padding: 1.25rem 1.5rem;
+      margin: 10px 0;
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      font-weight: 600;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      animation: fadeOut 0.5s ease-out 4.5s forwards;
+    }
+    
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        transform: translateX(100%);
+      }
+    }
+    
+    .message-success {
+      background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+      color: white;
+      border-left: 4px solid #2e7d32;
+    }
+    
+    .message-error {
+      background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+      color: white;
+      border-left: 4px solid #c62828;
+    }
+    
+    .message-icon {
+      font-size: 1.5rem;
+    }
+    
+    @media (min-width: 768px) {
+      .navList {
+        flex-direction: row;
+        column-gap: 2rem;
+      }
+      
+      .navM {
+        position: static;
+        width: auto;
+        background: transparent;
+        padding: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBJ2PWNG"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <!--Header-->
+
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="{% url 'index' %}" class="navL">
+        <img src="{% static 'img/log.png' %}" alt="favicon" class="navL-img" />EduRetoSV</a>
+
+      <div class="navM" id="nav-menu">
+        <ul class="navList">
+          <li class="navItem">
+            <a href="{% url 'index' %}" class="navLink active-link">Inicio</a>
+          </li>
+          <li class="navItem">
+            <a href="{% url 'materias' %}" class="navLink">Materias</a>
+          </li>
+          <li class="navItem">
+            <a href="{% url 'nosotros' %}" class="navLink">Nosotros</a>
+          </li> 
+          <li class="navItem">
+            {% if user.is_authenticated %}
+              <div class="user-menu">
+                <div class="user-menu-trigger">
+                  {% if user.get_imagen_perfil_url %}
+                    <img src="{{ user.get_imagen_perfil_url }}" alt="Perfil">
+                  {% else %}
+                    <div class="user-avatar">{{ user.username|first|upper }}</div>
+                  {% endif %}
+                  <span>{{ user.username }}</span>
+                  <i class="bx bx-chevron-down"></i>
+                </div>
+                <div class="user-menu-dropdown">
+                  <a href="{% url 'perfil' %}" class="dropdown-item">
+                    <i class="bx bx-user"></i>Perfil
+                  </a>
+                  <a href="{% url 'logout' %}" class="dropdown-item">
+                    <i class="bx bx-log-out"></i>Cerrar Sesión
+                  </a>
+                </div>
+              </div>
+            {% else %}
+              <a href="{% url 'login' %}" class="navLink">Registro</a>
+            {% endif %}
+          </li>
+        </ul>
+
+        <div class="navclose" id="nav-close">
+          <i class="bx bx-x"></i>
+        </div>
+      </div>
+
+      <div class="navToggle" id="nav-toggle">
+        <i class="bx bx-grid-alt"></i>
+      </div>
+    </nav>
+  </header>
+
+  <main class="main">
+    <!--Mensajes-->
+    {% if messages %}
+      <div class="message-container">
+        {% for message in messages %}
+          <div class="message-alert {% if message.tags == 'success' %}message-success{% else %}message-error{% endif %}">
+            <i class="bx {% if message.tags == 'success' %}bx-check-circle{% else %}bx-error-circle{% endif %} message-icon"></i>
+            <span>{{ message }}</span>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    <!--HOME-->
+    <section class="home container" id="home">
+      <div class="swiper home-swiper">
+        <div class="swiper-wrapper">
+          <section>
+            <div class="homecont grid">
+              <div class="homedata">
+                <h1 class="hometitle">JUEGOS EDUCATIVOS!<br />APRENDE JUGANDO!<br />JUGAR Y DESCUBRIR!!</h1>
+                <p class="homedes">
+                  <b>¡Bienvenido a EduReto!</b><br />
+                  En este sitio, el aprendizaje se transforma en una aventura. Hemos creado un espacio interactivo donde
+                  niños y niñas descubren la magia de las matemáticas, la gramática, la ciencia y el inglés mientras
+                  juegan. Cada juego está diseñado para despertar la curiosidad, reforzar el conocimiento y convertir
+                  cada lección en una experiencia divertida. ¡Explora, aprende y diviértete como nunca antes!
+                </p>
+                <div class="homebut">
+                  {% if not user.is_authenticated %}
+                    <a href="{% url 'login' %}" class="button">Registrate</a>
+                  {% endif %}
+                  <a href="#subjects" class="button">Materias</a>
+                </div>
+              </div>
+
+              <div class="homegroup">
+                <img src="{% static 'img/perp1.png' %}" alt="" class="homeimg" />
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!--INFO-->
+    <section class="section aprendizaje">
+      <h2 class="sectiontitle">
+        Pasos del aprendizaje <br />
+        ¿Cómo aprenderás aqui?
+      </h2>
+
+      <div class="aprendizajecontainer container grid">
+        <div class="aprendizajedata">
+          <img src="{% static 'img/inf1aprende.png' %}" alt="" />
+          <h3 class="aprendizajetitle">Juega</h3>
+          <p class="aprendizajedescription">
+            Desarrolla tu lógica mientras juegas. Memoriza, resuelve retos y diviértete aprendiendo sin darte cuenta.
+            Aquí el conocimiento comienza con el juego.
+          </p>
+        </div>
+
+        <div class="aprendizajedata">
+          <img src="{% static 'img/inf2aprende.png' %}" alt="" />
+          <h3 class="aprendizajetitle">Aprende</h3>
+          <p class="aprendizajedescription">
+            Comprende lo que te rodea con actividades que despiertan tu mente. Aprende a tu ritmo, con emoción y
+            creatividad. ¡Cada cosa aprendida es una luz encendida!
+          </p>
+        </div>
+
+        <div class="aprendizajedata">
+          <img src="{% static 'img/inf3aprende.png' %}" alt="" />
+          <h3 class="aprendizajetitle">Descubre</h3>
+          <p class="aprendizajedescription">
+            Explora el mundo con curiosidad. Observa, experimenta y hazte preguntas. Cada descubrimiento es una aventura
+            hacia el conocimiento
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!--ABOUT-->
+    <section class="section about" id="about">
+      <div class="aboutcontainer container grid">
+        <img src="{% static 'img/perp2.png' %}" alt="Marinero educativo" class="aboutimg" />
+
+        <div class="aboutdata">
+          <h2 class="sectiontitle abouttitle">Nosotros <br />Somos</h2>
+          <p class="aboutdescription">
+            Bienvenidos a bordo de un sitio muy especial, donde aprender es una verdadera aventura. Aquí,navegarás por
+            mares de juegos y descubrimientos. Cada actividad que encuentres fue diseñada para que te diviertas mientras
+            aprendes, como todo buen marinero que domina los mapas mientras juega con el viento.
+            <br><br>
+            ¡Prepárate para descubrir, aprender y vivir esta travesía como nunca antes!"
+          </p>
+          <a href="{% url 'nosotros' %}" class="button"> Nosotros </a>
+        </div>
+      </div>
+    </section>
+
+    <!--SUBJECTS-->
+    <section class="section subjects" id="subjects">
+      <h2 class="sectiontitle">Nuestras Materias</h2>
+
+      <div class="subjectscontainer container grid" style="grid-template-columns: repeat(4, 1fr);">
+        <div class="subjectscontent">
+          <img src="{% static 'img/modulo1.png' %}" alt="" class="subjectsimg" />
+          <h3 class="subjectstitle">Matemáticas</h3>
+          <span class="subjectssubtitle">Lógica y números</span>
+          <a href="{% url 'matematica' %}" class="button subjectsbutton">
+            <i class="bx bx-star producticon"></i> Jugar
+          </a>
+        </div>
+
+        <div class="subjectscontent">
+          <img src="{% static 'img/modulo2.png' %}" alt="" class="subjectsimg" />
+          <h3 class="subjectstitle">Ciencias</h3>
+          <span class="subjectssubtitle">Explora el mundo</span>
+          <a href="{% url 'ciencia' %}" class="button subjectsbutton">
+            <i class="bx bx-star producticon"></i> Jugar
+          </a>
+        </div>
+
+        <div class="subjectscontent">
+          <img src="{% static 'img/modulo3.png' %}" alt="" class="subjectsimg" />
+          <h3 class="subjectstitle">Gramática</h3>
+          <span class="subjectssubtitle">Lengua y escritura</span>
+          <a href="{% url 'gramatica' %}" class="button subjectsbutton">
+            <i class="bx bx-star producticon"></i> Jugar
+          </a>
+        </div>
+
+        <div class="subjectscontent">
+          <img src="{% static 'img/modulo4.png' %}" alt="" class="subjectsimg" />
+          <h3 class="subjectstitle">Inglés</h3>
+          <span class="subjectssubtitle">Conoce Otra Lengua</span>
+          <a href="{% url 'ingles' %}" class="button subjectsbutton">
+            <i class="bx bx-star producticon"></i> Jugar
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!--INF-->
+    <section class="section discount">
+      <div class="discountcontainer container grid">
+        <div class="discountdata">
+          <h2 class="discounttitle">¿Quires saber Mas de <br />Nuestras Materias?</h2>
+          <a href="{% url 'materias' %}" class="button">Vamos</a>
+        </div>
+        <img src="{% static 'img/Regis.png' %}" alt="" class="discountimg" />
+      </div>
+    </section>
+
+<!--LO NUEVO-->
+<section class="section new" id="new">
+  <h2 class="sectiontitle">Nuevos</h2>
+  <div class="newcontainer container">
+    <div class="newcontent">
+      <div class="newtag">Proximamete</div>
+      <img src="{% static 'img/tec.png' %}" alt="" class="newimg" />
+      <h3 class="newtitle">Tecnologia</h3>
+      <span class="newsubtitle">(Trabajo en progreso)</span>
+      <div class="newprices">
+        <span class="newdiscount">Informatica y Programacion</span>
+        <button class="button newbutton">
+        <i class="bx bx-wrench newicon"></i>
+      </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!--FOOTER-->
+  <footer class="footer section">
+    <div class="footercontainer container grid">
+      <div>
+        <a href="{% url 'index' %}" class="footerL">
+          <img src="{% static 'img/log.png' %}" alt="logo" class="footerL-img" />
+          EduRetoSV
+        </a>
+        <p class="footerdescription">Aprende jugando, descubre tu mundo. Plataforma educativa interactiva para niños y niñas.</p>
+        <div class="footersocial">
+          <a href="https://www.facebook.com/share/1Be6FAr6G5/" target="_blank" rel="noopener noreferrer" class="footersocial-link" title="Síguenos en Facebook">
+            <i class="bx bxl-facebook"></i>
+          </a>
+          <a href="https://www.instagram.com/edu__reto/#" target="_blank" rel="noopener noreferrer" class="footersocial-link" title="Síguenos en Instagram">
+            <i class="bx bxl-instagram"></i>
+          </a>
+          <a href="https://wa.me/50370365911" target="_blank" rel="noopener noreferrer" class="footersocial-link" title="Contáctanos por WhatsApp">
+            <i class="bx bxl-whatsapp"></i>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="footertitle">Materias</h3>
+        <ul class="footerlinks">
+          <li><a href="{% url 'matematica' %}" class="footerlink">Matemáticas</a></li>
+          <li><a href="{% url 'ciencia' %}" class="footerlink">Ciencias</a></li>
+          <li><a href="{% url 'gramatica' %}" class="footerlink">Gramática</a></li>
+          <li><a href="{% url 'ingles' %}" class="footerlink">Inglés</a></li>
+          <li><a href="{% url 'materias' %}" class="footerlink">Ver Todas</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="footertitle">Navegación</h3>
+        <ul class="footerlinks">
+          <li><a href="{% url 'index' %}" class="footerlink">Inicio</a></li>
+          <li><a href="{% url 'materias' %}" class="footerlink">Materias</a></li>
+          <li><a href="{% url 'nosotros' %}" class="footerlink">Nosotros</a></li>
+          <li><a href="{% url 'edureto1' %}" class="footerlink">Reto Final</a></li>
+          <li><a href="{% url 'login' %}" class="footerlink">Registro</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="footertitle">Nosotros</h3>
+        <ul class="footerlinks">
+          <li><a href="{% url 'nosotros' %}#historia" class="footerlink">Nuestra Historia</a></li>
+          <li><a href="{% url 'nosotros' %}#mision" class="footerlink">Misión</a></li>
+          <li><a href="{% url 'nosotros' %}#valores" class="footerlink">Valores</a></li>
+          <li><a href="{% url 'nosotros' %}#equipo" class="footerlink">Equipo</a></li>
+        </ul>
+      </div>
+    </div>
+    <span class="footercopy">&#169; EduRetoSV 2025. Todos los derechos reservados.</span>
+  </footer>
+
+  <!--JAVASCRIPT-->
+  <script src="{% static 'js/scrollreveal.min.js' %}"></script>
+
+  <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+
+  <script src="{% static 'js/main.js' %}"></script>
+  <!-- AOS Animation Library -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Verificar que AOS esté disponible antes de inicializar
+    if (typeof AOS !== 'undefined') {
+      AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true
+      });
+    } else {
+      console.warn('AOS no está cargado');
+    }
+  </script>
+  <script>
+    // Dropdown menu functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const userMenuTrigger = document.querySelector('.user-menu-trigger');
+      const userMenuDropdown = document.querySelector('.user-menu-dropdown');
+      
+      if (userMenuTrigger && userMenuDropdown) {
+        userMenuTrigger.addEventListener('click', function(e) {
+          e.stopPropagation();
+          e.preventDefault();
+          userMenuDropdown.classList.toggle('show');
+        });
+        
+        // Cerrar dropdown al hacer clic fuera
+        document.addEventListener('click', function(e) {
+          if (!userMenuTrigger.contains(e.target) && !userMenuDropdown.contains(e.target)) {
+            userMenuDropdown.classList.remove('show');
+          }
+        });
+        
+        // Cerrar dropdown al hacer clic en un enlace del dropdown
+        const dropdownItems = document.querySelectorAll('.dropdown-item');
+        dropdownItems.forEach(item => {
+          item.addEventListener('click', function() {
+            userMenuDropdown.classList.remove('show');
+          });
+        });
+      }
+      
+      // Ocultar mensajes después de 5 segundos
+      const messageAlerts = document.querySelectorAll('.message-alert');
+      messageAlerts.forEach(alert => {
+        setTimeout(() => {
+          alert.style.display = 'none';
+        }, 5000);
+      });
+    });
+  </script>
+</body>
+
+</html>

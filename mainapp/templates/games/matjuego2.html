@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-WBJ2PWNG');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="{% static 'img/log.png' %}" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/games/math-modal.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/games/snakegame.css' %}" />
+  <title>Snake Matemático | EduRetoSV</title>
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBJ2PWNG"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <!-- Ventana Modal -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-content">
+        <div class="modal-bubble-container">
+          <div class="modal-bubble">
+            <div class="modal-text">
+              <h3 style="text-align:center;margin-bottom:0.5rem;">¡Bienvenido al Snake Matemático!</h3>
+              <p style="margin-bottom:0.5rem;">
+                En este juego, controlarás una serpiente que debe comer la respuesta correcta a las operaciones matemáticas que aparecerán.
+              </p>
+              <p style="margin-bottom:0.5rem;"><strong>Instrucciones:</strong></p>
+              <ul style="text-align:left;margin-left:1.5rem;margin-bottom:0.5rem;">
+                <li>Usa las <strong>flechas del teclado</strong> para mover la serpiente</li>
+                <li>Come la respuesta <strong>correcta</strong> para ganar puntos</li>
+                <li>Evita comer respuestas <strong>incorrectas</strong> o chocar con tu cuerpo</li>
+                <li>Tienes <strong>3 vidas</strong> - ¡cuídalas!</li>
+                <li>Gana <strong>1 punto</strong> por cada respuesta correcta</li>
+                <li>El objetivo es alcanzar <strong>15 puntos</strong></li>
+              </ul>
+              <p style="margin-bottom:0;">
+                ¡Demuestra tus habilidades matemáticas mientras juegas!
+              </p>
+            </div>
+          </div>
+          <div class="modal-buttons">
+            <button class="modal-button" id="btn-iniciar">
+              <i class="bx bx-play-circle"></i>
+              INICIAR
+            </button>
+            <a href="{% url 'matematica' %}" class="modal-button" id="btn-volver">
+              <i class="bx bx-arrow-back"></i>
+              VOLVER
+            </a>
+          </div>
+        </div>
+        <div class="modal-personaje">
+          <img src="{% static 'img/matep3.png' %}" alt="Personaje de Matemáticas">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenido de la página (se muestra después de cerrar el modal) -->
+  <main class="main">
+    <div class="page-content" id="page-content">
+      <section class="section grammar-game-section">
+        <div class="container">
+          <div id="game-container" 
+               data-complete-url="#"
+               data-back-url="{% url 'matematica' %}"
+               data-music-url="{% static 'assets/math/matmusic.mp3' %}"
+               data-life-image-url="{% static 'assets/math/life.png' %}"
+               data-correct-sound-url="{% static 'assets/math/acierto.mp3' %}"
+               data-incorrect-sound-url="{% static 'assets/math/error.mp3' %}"
+               data-victory-sound-url="{% static 'assets/math/acierto.mp3' %}"
+               data-is-authenticated="false">
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- JavaScript -->
+  <script type="text/javascript">
+    // Configuración del juego - Leer desde data attributes
+    var gameContainer = document.getElementById('game-container');
+    
+    // Debug: Verificar los data attributes
+    console.log('Data attributes del container:');
+    console.log('data-music-url:', gameContainer.getAttribute('data-music-url'));
+    console.log('data-life-image-url:', gameContainer.getAttribute('data-life-image-url'));
+    console.log('data-correct-sound-url:', gameContainer.getAttribute('data-correct-sound-url'));
+    console.log('data-incorrect-sound-url:', gameContainer.getAttribute('data-incorrect-sound-url'));
+    console.log('data-victory-sound-url:', gameContainer.getAttribute('data-victory-sound-url'));
+    
+    window.gameConfig = {
+      completeUrl: gameContainer.getAttribute('data-complete-url'),
+      backUrl: gameContainer.getAttribute('data-back-url'),
+      isAuthenticated: gameContainer.getAttribute('data-is-authenticated') === 'true',
+      musicUrl: gameContainer.getAttribute('data-music-url'),
+      lifeImageUrl: gameContainer.getAttribute('data-life-image-url'),
+      correctSoundUrl: gameContainer.getAttribute('data-correct-sound-url'),
+      incorrectSoundUrl: gameContainer.getAttribute('data-incorrect-sound-url'),
+      victorySoundUrl: gameContainer.getAttribute('data-victory-sound-url')
+    };
+    
+    console.log('gameConfig configurado:', window.gameConfig);
+  </script>
+  <script src="{% static 'js/progress-tracker.js' %}"></script>
+  <script src="{% static 'js/games/math-modal.js' %}"></script>
+  <script src="{% static 'js/games/snakegame.js' %}"></script>
+</body>
+
+</html>

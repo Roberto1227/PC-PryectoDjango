@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WBJ2PWNG');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'img/log.png' %}" type="image/x-icon" />
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{% static 'css/lpstyle.css' %}">
+    <!-- Facebook SDK -->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_ES/sdk.js"></script>
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBJ2PWNG"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    
+    <div class="container">
+        <!-- Inicio -->
+        <div class="container-form">
+            <form class="sign-in" method="POST" novalidate>
+                {% csrf_token %}
+                <input type="hidden" name="form_type" value="login">
+                <h2>Iniciar Sesión</h2>
+                <div class="social-networks">
+                    <button type="button" class="social-btn" id="facebook-login" title="Iniciar sesión con Facebook">
+                        <ion-icon name="logo-facebook"></ion-icon>
+                    </button>
+                    <button type="button" class="social-btn" id="instagram-login" title="Iniciar sesión con Instagram">
+                        <ion-icon name="logo-instagram"></ion-icon>
+                    </button>
+                    <button type="button" class="social-btn" id="google-login" title="Iniciar sesión con Google">
+                        <ion-icon name="logo-google"></ion-icon>
+                    </button>
+                </div>
+
+                  <div class="form-errors" style="color: red; padding: 10px; margin: 10px 0; border-radius: 5px; background: rgba(255,0,0,0.1);">
+                    {% if login_errors %}
+                        {% for error in login_errors %}
+                            <div>{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
+                  </div>
+                
+                <span>Use su correo y contraseña</span>
+                <div class="container-input">
+                    <ion-icon name="mail-outline"></ion-icon>
+                    <input type="text" name="username" placeholder="Usuario o correo" required value="">
+                </div>
+                
+                  <div class="field-error"></div>
+                
+                <div class="container-input">
+                    <ion-icon name="lock-closed-outline"></ion-icon>
+                    <input type="password" name="password" placeholder="Password" required>
+                </div>
+                
+                  <div class="field-error"></div>
+
+                <a href="#">¿Olvidaste tu contraseña?</a>
+                <button class="button" type="submit">INICIAR SESIÓN</button>
+                <a href="{% url 'index' %}">Volver al Inicio</a>   
+            </form>
+        </div>
+
+        <!-- Registro -->
+        <div class="container-form">
+           <form class="sign-up" method="POST" novalidate>
+                {% csrf_token %}
+                <input type="hidden" name="form_type" value="register">
+                <h2>Registrarse</h2>
+                <div class="social-networks">
+                    <button type="button" class="social-btn" id="facebook-register" title="Registrarse con Facebook">
+                        <ion-icon name="logo-facebook"></ion-icon>
+                    </button>
+                    <button type="button" class="social-btn" id="instagram-register" title="Registrarse con Instagram">
+                        <ion-icon name="logo-instagram"></ion-icon>
+                    </button>
+                    <button type="button" class="social-btn" id="google-register" title="Registrarse con Google">
+                        <ion-icon name="logo-google"></ion-icon>
+                    </button>
+                </div>
+                <span>¡Crea tu cuenta y comienza a jugar!</span>
+                
+                  <div class="form-errors" style="color: red; padding: 10px; margin: 10px 0; border-radius: 5px; background: rgba(255,0,0,0.1);">
+                    {% if register_errors %}
+                        {% for error in register_errors %}
+                            <div>{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
+                  </div>
+                
+                <div class="container-input">
+                    <ion-icon name="person-outline"></ion-icon>
+                    <input type="text" name="username" placeholder="Nombre de usuario" required value="{% if register_username %}{{ register_username }}{% endif %}">
+                </div>
+                
+                  <div class="field-error"></div>
+                
+                <div class="container-input">
+                    <ion-icon name="mail-outline"></ion-icon>
+                    <input type="email" name="email" placeholder="Email (opcional)" value="{% if register_email %}{{ register_email }}{% endif %}">
+                </div>
+                
+                  <div class="field-error"></div>
+                
+                <div class="container-input">
+                    <ion-icon name="lock-closed-outline"></ion-icon>
+                    <input type="password" name="password1" placeholder="Contraseña (mínimo 5 letras)" required minlength="5">
+                </div>
+                
+                  <div class="field-error"></div>
+                
+                <div class="container-input">
+                    <ion-icon name="lock-closed-outline"></ion-icon>
+                    <input type="password" name="password2" placeholder="Repite tu contraseña" required minlength="5">
+                </div>
+                
+                  <div class="field-error"></div>
+                
+                <button class="button" type="submit">REGISTRARSE</button>
+                <a href="{% url 'index' %}">Volver al Inicio</a>   
+            </form>  
+        </div>
+
+        <!-- Bienvenida -->
+        <div class="container-welcome">
+            <div class="welcome-sign-up welcome">
+                <img src="{% static 'img/log.png' %}" alt="Logo" class="welcome-logo">
+                <h3>¡Bienvenido!</h3>
+                <p>Ingresa tus datos personales y comienza tu aventura con nosotros</p>
+                <button class="button" id="btn-sign-up">Registrarse</button>
+            </div>
+            <div class="welcome-sign-in welcome">
+                <img src="{% static 'img/log.png' %}" alt="Logo" class="welcome-logo">
+                <h3>¡Hola!</h3>
+                <p>Para mantenerse conectado con nosotros, inicie sesión con su información personal</p>
+                <button class="button" id="btn-sign-in">Iniciar Sesión</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/lpscripts.js' %}"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    
+    <!-- Google Sign-In Script -->
+    <script>
+        function handleGoogleSignIn(response) {
+            // Enviar el token al servidor
+            fetch('{% url "google_auth" %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify({
+                    credential: response.credential
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // Redirigir al inicio
+                    window.location.href = data.redirect || '/';
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al autenticar con Google. Por favor, intenta de nuevo.');
+            });
+        }
+        
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        
+        // Inicializar Google Identity Services cuando esté listo
+        window.addEventListener('load', function() {
+            // Esperar a que Google Identity Services esté completamente cargado
+            function initGoogleSignIn() {
+                if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+                    google.accounts.id.initialize({
+                        client_id: '855312988729-u3d0a2qu2due63nfe3r6808dkn88gcl5.apps.googleusercontent.com',
+                        callback: handleGoogleSignIn,
+                        auto_select: false,
+                        cancel_on_tap_outside: true
+                    });
+                    
+                    // Agregar listeners a los botones personalizados de Google
+                    const googleLoginBtn = document.getElementById('google-login');
+                    const googleRegisterBtn = document.getElementById('google-register');
+                    
+                    if (googleLoginBtn) {
+                        googleLoginBtn.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            // Iniciar el flujo de autenticación de Google
+                            google.accounts.id.prompt((notification) => {
+                                if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+                                    // Si oneTap no está disponible, usar el método alternativo
+                                    // Crear un div oculto para renderizar el botón y hacer click
+                                    const hiddenDiv = document.createElement('div');
+                                    hiddenDiv.style.position = 'absolute';
+                                    hiddenDiv.style.left = '-9999px';
+                                    document.body.appendChild(hiddenDiv);
+                                    
+                                    google.accounts.id.renderButton(hiddenDiv, {
+                                        theme: 'outline',
+                                        size: 'large',
+                                        type: 'standard',
+                                        text: 'signin_with',
+                                        shape: 'rectangular'
+                                    });
+                                    
+                                    // Hacer click en el botón renderizado
+                                    setTimeout(function() {
+                                        const googleButton = hiddenDiv.querySelector('div[role="button"]');
+                                        if (googleButton) {
+                                            googleButton.click();
+                                        }
+                                        document.body.removeChild(hiddenDiv);
+                                    }, 100);
+                                }
+                            });
+                        });
+                    }
+                    
+                    if (googleRegisterBtn) {
+                        googleRegisterBtn.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            google.accounts.id.prompt((notification) => {
+                                if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+                                    const hiddenDiv = document.createElement('div');
+                                    hiddenDiv.style.position = 'absolute';
+                                    hiddenDiv.style.left = '-9999px';
+                                    document.body.appendChild(hiddenDiv);
+                                    
+                                    google.accounts.id.renderButton(hiddenDiv, {
+                                        theme: 'outline',
+                                        size: 'large',
+                                        type: 'standard',
+                                        text: 'signup_with',
+                                        shape: 'rectangular'
+                                    });
+                                    
+                                    setTimeout(function() {
+                                        const googleButton = hiddenDiv.querySelector('div[role="button"]');
+                                        if (googleButton) {
+                                            googleButton.click();
+                                        }
+                                        document.body.removeChild(hiddenDiv);
+                                    }, 100);
+                                }
+                            });
+                        });
+                    }
+                } else {
+                    // Si Google aún no está cargado, intentar de nuevo
+                    setTimeout(initGoogleSignIn, 100);
+                }
+            }
+            
+            initGoogleSignIn();
+        });
+    </script>
+</body>
+</html>
+

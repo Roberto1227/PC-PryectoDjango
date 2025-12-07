@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-WBJ2PWNG');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="{% static 'img/log.png' %}" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/games/gram-modal.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/games/gram-ruleta.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/games/gram-complete.css' %}" />
+  <title>Ruleta Gramatical | EduRetoSV</title>
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBJ2PWNG"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <!-- Ventana Modal -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-content">
+        <div class="modal-bubble-container">
+          <div class="modal-bubble">
+            <div class="modal-text">
+              <h3 style="text-align:center;margin-bottom:0.5rem;">¡Ruleta Gramatical!</h3>
+              <p style="margin-bottom:0.5rem;">
+                Gira la ruleta para conseguir palabras y crea una oración correcta.
+              </p>
+              <p style="margin-bottom:0.5rem;"><strong>Instrucciones:</strong></p>
+              <ul style="text-align:left;margin-left:1.5rem;margin-bottom:0.5rem;">
+                <li>Gira la ruleta para obtener hasta 10 palabras.</li>
+                <li>Escribe una oración usando al menos 3 palabras obtenidas.</li>
+                <li>Usa mayúscula inicial, buena puntuación y sentido lógico.</li>
+                <li>Tienes 10 rondas para lograr la mejor racha.</li>
+              </ul>
+              <p style="margin-bottom:0;">¡Mientras más precisa sea tu oración, más puntos ganarás!</p>
+            </div>
+          </div>
+          <div class="modal-buttons">
+            <button class="modal-button" id="btn-iniciar">
+              <i class="bx bx-play-circle"></i>
+              INICIAR
+            </button>
+            <a href="{% url 'gramatica' %}" class="modal-button" id="btn-volver">
+              <i class="bx bx-arrow-back"></i>
+              VOLVER
+            </a>
+          </div>
+        </div>
+        <div class="modal-personaje">
+          <img src="{% static 'img/gramp3.png' %}" alt="Personaje de Gramática">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="main">
+    <div class="page-content" id="page-content">
+      <section class="section grammar-game-section">
+        <div class="container">
+          <div id="game-container" 
+               data-back-url="{% url 'gramatica' %}"
+               class="ruleta-wrapper"></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const gameContainer = document.getElementById('game-container');
+      if (gameContainer) {
+        window.gameConfig = {
+          backUrl: gameContainer.getAttribute('data-back-url')
+        };
+      }
+    });
+  </script>
+  <script src="{% static 'js/progress-tracker.js' %}"></script>
+  <script src="{% static 'js/games/gram-modal.js' %}"></script>
+  <script src="{% static 'js/games/gram-ruleta.js' %}"></script>
+</body>
+
+</html>
+
+

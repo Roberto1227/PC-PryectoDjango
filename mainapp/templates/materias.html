@@ -1,0 +1,475 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-WBJ2PWNG');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="{% static 'img/log.png' %}" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/materias.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <title>Materias|EduRetoSV</title>
+  <style>
+    /* Estilos para el menú de usuario */
+    .user-menu {
+      position: relative;
+    }
+    
+    .user-menu-trigger {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.5rem;
+      transition: background 0.3s;
+    }
+    
+    .user-menu-trigger:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .user-menu-trigger img,
+    .user-avatar {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgb(42, 58, 107);
+      color: #fff;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    
+    .user-avatar {
+      text-transform: uppercase;
+    }
+    
+    .user-menu-trigger span {
+      color: #fff;
+      font-weight: 500;
+      text-transform: none;
+    }
+    
+    .user-menu-trigger i {
+      color: #fff;
+      font-size: 1.2rem;
+    }
+    
+    .user-menu-dropdown {
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      right: 0;
+      background: rgb(42, 58, 107);
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      min-width: 200px;
+      display: none;
+      z-index: 10000;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(-10px) scale(0.95);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+    }
+    
+    .user-menu-dropdown.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: all;
+    }
+    
+    .user-menu-dropdown .dropdown-item {
+      transform: translateX(-10px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    
+    .user-menu-dropdown.show .dropdown-item {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    
+    .user-menu-dropdown.show .dropdown-item:nth-child(1) {
+      transition-delay: 0.1s;
+    }
+    
+    .user-menu-dropdown.show .dropdown-item:nth-child(2) {
+      transition-delay: 0.2s;
+    }
+    
+    .user-menu-dropdown .dropdown-item {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      color: #fff;
+      text-decoration: none;
+      transition: background 0.3s;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      font-weight: 500;
+    }
+    
+    .user-menu-dropdown .dropdown-item:last-child {
+      border-bottom: none;
+    }
+    
+    .user-menu-dropdown .dropdown-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .user-menu-dropdown .dropdown-item i {
+      margin-right: 0.75rem;
+      font-size: 1.2rem;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBJ2PWNG"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <!--Header-->
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="{% url 'index' %}" class="navL">
+        <img src="{% static 'img/log.png' %}" alt="favicon" class="navL-img" />EduRetoSV</a>
+      <div class="navM" id="nav-menu">
+        <ul class="navList">
+          <li class="navItem">
+            <a href="{% url 'index' %}" class="navLink">Inicio</a>
+          </li>
+          <li class="navItem">
+            <a href="{% url 'materias' %}" class="navLink active-link">Materias</a>
+          </li>
+          <li class="navItem">
+            <a href="{% url 'nosotros' %}" class="navLink">Nosotros</a>
+          </li>
+          <li class="navItem">
+            {% if user.is_authenticated %}
+              <div class="user-menu">
+                <div class="user-menu-trigger">
+                  {% if user.get_imagen_perfil_url %}
+                    <img src="{{ user.get_imagen_perfil_url }}" alt="Perfil">
+                  {% else %}
+                    <div class="user-avatar">{{ user.username|first|upper }}</div>
+                  {% endif %}
+                  <span>{{ user.username }}</span>
+                  <i class="bx bx-chevron-down"></i>
+                </div>
+                <div class="user-menu-dropdown">
+                  <a href="{% url 'perfil' %}" class="dropdown-item">
+                    <i class="bx bx-user"></i>Perfil
+                  </a>
+                  <a href="{% url 'logout' %}" class="dropdown-item">
+                    <i class="bx bx-log-out"></i>Cerrar Sesión
+                  </a>
+                </div>
+              </div>
+            {% else %}
+              <a href="{% url 'login' %}" class="navLink">Registro</a>
+            {% endif %}
+          </li>
+        </ul>
+        <div class="navclose" id="nav-close">
+          <i class="bx bx-x"></i>
+        </div>
+      </div>
+      <div class="navToggle" id="nav-toggle">
+        <i class="bx bx-grid-alt"></i>
+      </div>
+    </nav>
+  </header>
+  <main class="main">
+
+    <!--NUESTRASMATERIAS-->
+    <section class="section new-section">
+      <h2 class="sectiontitle"><b>Conoce Nuestras Materias</b></h2>
+      <div class="new-section-container container grid">
+        <div class="new-section-image">
+          <img src="{% static 'img/materia.png' %}" alt="materias img">
+        </div>
+        <div class="new-section-text">
+          <h3><b>¡Aprende Jugando!</b></h3>
+          <p>Te damos la bienvenida a nuestro centro de aprendizaje! Aquí es donde la diversión y el conocimiento se
+            encuentran. Hemos diseñado juegos emocionantes para cuatro áreas clave del saber.
+            Creemos que la mejor forma de aprender es jugando. Por eso, hemos transformado las lecciones de Matemáticas,
+            Ciencias, Gramática e Inglés en aventuras interactivas. Explora cada sección para descubrir desafíos que
+            pondrán a prueba tu ingenio y te ayudarán a reforzar tus habilidades.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!--SECCIÓN DE MATERIAS-->
+    <section class="section materias-section">
+      <h3><b>¿Estás listo para el desafío?</b></h3>
+      <p>Elige tu materia favorita, selecciona un juego y ¡que comience el aprendizaje!</p>
+      <div class="materias-grid container">
+
+        <!-- Matemáticas -->
+        <div class="materia-card matemáticas-card">
+          <div class="materia-icon">
+            <div class="materia-icon-wrapper matemáticas-icon">
+              <img src="{% static 'img/modulo1.png' %}" alt="Matemáticas" class="materia-icon-img">
+            </div>
+          </div>
+          <h3 class="materia-title"><b>Matemáticas</b></h3>
+          <p class="materia-description">¿Quién dijo que los números eran aburridos? Prepárate para resolver acertijos,
+            superar retos de lógica y viajar por mundos donde las operaciones, la geometría y los cálculos son la clave
+            para ganar. ¡Nuestros juegos de matemáticas harán que tu mente brille!</p>
+          <a href="{% url 'matematica' %}" class="materia-button">
+            <i class="bx bx-star"></i>
+            JUGAR
+          </a>
+        </div>
+
+        <!-- Ciencias -->
+        <div class="materia-card ciencias-card">
+          <div class="materia-icon">
+            <div class="materia-icon-wrapper ciencias-icon">
+              <img src="{% static 'img/modulo2.png' %}" alt="Ciencias" class="materia-icon-img">
+            </div>
+          </div>
+          <h3 class="materia-title"><b>Ciencias</b></h3>
+          <p class="materia-description">Desde los misterios del espacio exterior hasta el funcionamiento del cuerpo
+            humano. En esta sección, te convertirás en un explorador. Realiza experimentos, descubre cómo funciona la
+            naturaleza y aprende los secretos del universo mientras juegas.</p>
+          <a href="{% url 'ciencia' %}" class="materia-button">
+            <i class="bx bx-star"></i>
+            JUGAR
+          </a>
+        </div>
+
+        <!-- Gramática -->
+        <div class="materia-card gramática-card">
+          <div class="materia-icon">
+            <div class="materia-icon-wrapper gramática-icon">
+              <img src="{% static 'img/modulo3.png' %}" alt="Gramática" class="materia-icon-img">
+            </div>
+          </div>
+          <h3 class="materia-title"><b>Gramática</b></h3>
+          <p class="materia-description">Las palabras construyen mundos. Aquí jugarás con oraciones, descubrirás las
+            reglas de la ortografía y te convertirás en un maestro de la comunicación. ¡Demuestra tu habilidad con el
+            lenguaje y aprende a expresarte con claridad!</p>
+          <a href="{% url 'gramatica' %}" class="materia-button">
+            <i class="bx bx-star"></i>
+            JUGAR
+          </a>
+        </div>
+
+        <!-- Inglés -->
+        <div class="materia-card inglés-card">
+          <div class="materia-icon">
+            <div class="materia-icon-wrapper inglés-icon">
+              <img src="{% static 'img/modulo4.png' %}" alt="Inglés" class="materia-icon-img">
+            </div>
+          </div>
+          <h3 class="materia-title"><b>Inglés</b></h3>
+          <p class="materia-description">Prepárate para una aventura bilingüe! Nuestros juegos de inglés están diseñados
+            para ayudarte a construir tu vocabulario, practicar nuevas frases y entender el idioma de una forma dinámica
+            y entretenida. Let's play!</p>
+          <a href="{% url 'ingles' %}" class="materia-button">
+            <i class="bx bx-star"></i>
+            JUGAR
+          </a>
+        </div>
+
+        <!-- EduReto -->
+        <div class="materia-card edureto-card {% if not reto_final_desbloqueado %}bloqueado{% endif %}">
+          <div class="materia-icon">
+            <div class="materia-icon-wrapper edureto-icon">
+              <img src="{% static 'img/romp.png' %}" alt="EduReto" class="materia-icon-img">
+            </div>
+          </div>
+          <h3 class="materia-title"><b>EduReto</b></h3>
+          <p class="materia-description">¿Estás listo para el el gran reto?</p>
+          {% if reto_final_desbloqueado %}
+            <a href="{% url 'edureto1' %}" class="materia-button edureto-button">
+              <i class="bx bx-play-circle"></i>
+              EMPEZAR
+            </a>
+          {% else %}
+            <div class="materia-button edureto-button bloqueado">
+              <i class="bx bx-lock"></i>
+              COMPLETA LOS 4 EXÁMENES
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+
+    <!--SECCIÓN ¿PORQUE APRENDER CON JUEGOS?-->
+    <section class="section aprender-section">
+      <div class="aprender-container container grid">
+        <div class="aprender-image">
+          <div class="thought-bubble">
+            <p class="thought-text">¿Porque aprender con juegos?</p>
+          </div>
+          <img src="{% static 'img/perp4.png' %}" alt="Personaje preguntando" class="aprender-personaje">
+        </div>
+        <div class="aprender-text">
+          <p>En <b>EduReto SV</b>, creemos que el aprendizaje no tiene por qué ser aburrido. Los juegos educativos son una
+            herramienta increíblemente poderosa para transformar la manera en que los estudiantes absorben y procesan la
+            información.<br><br> No se trata solo de "jugar", se trata de aprender haciendo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!--SECCIÓN ENLACES EXTERNOS-->
+    <section class="section enlaces-section">
+      <h2 class="sectiontitle">¿Quieres saber más sobre los juegos y el aprendizaje?</h2>
+      <p class="enlaces-subtitle">Explora más recursos educativos y descubre diferentes perspectivas sobre el aprendizaje a través del juego</p>
+      <div class="enlaces-container container">
+        <div class="enlaces-grid grid">
+          <div class="enlace-card">
+            <div class="enlace-icon">
+              <i class="bx bx-world"></i>
+            </div>
+            <h3 class="enlace-title">EduVerso</h3>
+            <p class="enlace-description">Descubre más sobre cómo los juegos educativos transforman el aprendizaje y exploran nuevas metodologías pedagógicas.</p>
+            <a href="https://roberto2727chavez.wixsite.com/eduverso" target="_blank" rel="noopener noreferrer" class="button enlace-button">
+              <i class="bx bx-link-external"></i>
+              Ver Más
+            </a>
+          </div>
+
+          <div class="enlace-card">
+            <div class="enlace-icon">
+              <i class="bx bx-book-reader"></i>
+            </div>
+            <h3 class="enlace-title">EduRetoSV</h3>
+            <p class="enlace-description">Conoce más sobre nuestro espacio educativo en línea y las diferentes formas de aprender de manera interactiva.</p>
+            <a href="https://yaderomerot.wixsite.com/eduretosv" target="_blank" rel="noopener noreferrer" class="button enlace-button">
+              <i class="bx bx-link-external"></i>
+              Ver Más
+            </a>
+          </div>
+
+          <div class="enlace-card">
+            <div class="enlace-icon">
+              <i class="bx bx-game"></i>
+            </div>
+            <h3 class="enlace-title">Aprende Jugando</h3>
+            <p class="enlace-description">Explora más recursos y juegos educativos que hacen del aprendizaje una experiencia divertida y significativa.</p>
+            <a href="https://edwin1999josue.wixsite.com/eduretosv" target="_blank" rel="noopener noreferrer" class="button enlace-button">
+              <i class="bx bx-link-external"></i>
+              Ver Más
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--FOOTER-->
+    <footer class="footer section">
+      <div class="footercontainer container grid">
+        <div>
+          <a href="{% url 'index' %}" class="footerL">
+            <img src="{% static 'img/log.png' %}" alt="logo" class="footerL-img" />
+            EduRetoSV
+          </a>
+          <p class="footerdescription">Aprende jugando, descubre tu mundo. Plataforma educativa interactiva para niños y niñas.</p>
+          <div class="footersocial">
+            <a href="https://www.facebook.com/share/1Be6FAr6G5/" target="_blank" rel="noopener noreferrer" class="footersocial-link" title="Síguenos en Facebook">
+              <i class="bx bxl-facebook"></i>
+            </a>
+            <a href="https://www.instagram.com/edu__reto/#" target="_blank" rel="noopener noreferrer" class="footersocial-link" title="Síguenos en Instagram">
+              <i class="bx bxl-instagram"></i>
+            </a>
+            <a href="https://wa.me/50370365911" target="_blank" rel="noopener noreferrer" class="footersocial-link" title="Contáctanos por WhatsApp">
+              <i class="bx bxl-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="footertitle">Materias</h3>
+          <ul class="footerlinks">
+            <li><a href="{% url 'matematica' %}" class="footerlink">Matemáticas</a></li>
+            <li><a href="{% url 'ciencia' %}" class="footerlink">Ciencias</a></li>
+            <li><a href="{% url 'gramatica' %}" class="footerlink">Gramática</a></li>
+            <li><a href="{% url 'ingles' %}" class="footerlink">Inglés</a></li>
+            <li><a href="{% url 'materias' %}" class="footerlink">Ver Todas</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="footertitle">Navegación</h3>
+          <ul class="footerlinks">
+            <li><a href="{% url 'index' %}" class="footerlink">Inicio</a></li>
+            <li><a href="{% url 'materias' %}" class="footerlink">Materias</a></li>
+            <li><a href="{% url 'nosotros' %}" class="footerlink">Nosotros</a></li>
+            <li><a href="{% url 'edureto1' %}" class="footerlink">Reto Final</a></li>
+            <li><a href="{% url 'login' %}" class="footerlink">Registro</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="footertitle">Nosotros</h3>
+          <ul class="footerlinks">
+            <li><a href="{% url 'nosotros' %}#historia" class="footerlink">Nuestra Historia</a></li>
+            <li><a href="{% url 'nosotros' %}#mision" class="footerlink">Misión</a></li>
+            <li><a href="{% url 'nosotros' %}#valores" class="footerlink">Valores</a></li>
+            <li><a href="{% url 'nosotros' %}#equipo" class="footerlink">Equipo</a></li>
+          </ul>
+        </div>
+      </div>
+      <span class="footercopy">&#169; EduRetoSV 2025. Todos los derechos reservados.</span>
+    </footer>
+    <!--JAVASCRIPT-->
+    <script src="{% static 'js/scrollreveal.min.js' %}"></script>
+    <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/materias.js' %}"></script>
+    <script>
+      // Dropdown menu functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        const userMenuTrigger = document.querySelector('.user-menu-trigger');
+        const userMenuDropdown = document.querySelector('.user-menu-dropdown');
+        
+        if (userMenuTrigger && userMenuDropdown) {
+          userMenuTrigger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            userMenuDropdown.classList.toggle('show');
+          });
+          
+          // Cerrar dropdown al hacer clic fuera
+          document.addEventListener('click', function(e) {
+            if (!userMenuTrigger.contains(e.target) && !userMenuDropdown.contains(e.target)) {
+              userMenuDropdown.classList.remove('show');
+            }
+          });
+          
+          // Cerrar dropdown al hacer clic en un enlace del dropdown
+          const dropdownItems = document.querySelectorAll('.dropdown-item');
+          dropdownItems.forEach(item => {
+            item.addEventListener('click', function() {
+              userMenuDropdown.classList.remove('show');
+            });
+          });
+        }
+      });
+    </script>
+</body>
+
+</html>

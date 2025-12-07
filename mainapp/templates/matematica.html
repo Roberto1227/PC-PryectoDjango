@@ -1,0 +1,487 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-WBJ2PWNG');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="{% static 'img/log.png' %}" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/matematicas.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <title>Matemáticas|EduRetoSV</title>
+  <style>
+    /* Estilos para el menú de usuario */
+    .user-menu {
+      position: relative;
+    }
+    
+    .user-menu-trigger {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.5rem;
+      transition: background 0.3s;
+    }
+    
+    .user-menu-trigger:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .user-menu-trigger img,
+    .user-avatar {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgb(42, 58, 107);
+      color: #fff;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    
+    .user-avatar {
+      text-transform: uppercase;
+    }
+    
+    .user-menu-trigger span {
+      color: #fff;
+      font-weight: 500;
+      text-transform: none;
+    }
+    
+    .user-menu-trigger i {
+      color: #fff;
+      font-size: 1.2rem;
+    }
+    
+    .user-menu-dropdown {
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      right: 0;
+      background: rgb(42, 58, 107);
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      min-width: 200px;
+      display: none;
+      z-index: 10000;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(-10px) scale(0.95);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+    }
+    
+    .user-menu-dropdown.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: all;
+    }
+    
+    .user-menu-dropdown .dropdown-item {
+      transform: translateX(-10px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    
+    .user-menu-dropdown.show .dropdown-item {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    
+    .user-menu-dropdown.show .dropdown-item:nth-child(1) {
+      transition-delay: 0.1s;
+    }
+    
+    .user-menu-dropdown.show .dropdown-item:nth-child(2) {
+      transition-delay: 0.2s;
+    }
+    
+    .user-menu-dropdown .dropdown-item {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      color: #fff;
+      text-decoration: none;
+      transition: background 0.3s;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      font-weight: 500;
+    }
+    
+    .user-menu-dropdown .dropdown-item:last-child {
+      border-bottom: none;
+    }
+    
+    .user-menu-dropdown .dropdown-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .user-menu-dropdown .dropdown-item i {
+      margin-right: 0.75rem;
+      font-size: 1.2rem;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBJ2PWNG"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <!--Header-->
+  <header class="mat header" id="header">
+    <nav class="nav container">
+      <a href="{% url 'index' %}" class="navL">
+        <img src="{% static 'img/log.png' %}" alt="favicon" class="navL-img" />EduRetoSV</a>
+      <div class="navM" id="nav-menu">
+        <ul class="navList">
+          <li class="navItem">
+            <a href="{% url 'index' %}" class="navLink">Inicio</a>
+          </li>
+          <li class="navItem">
+            <a href="{% url 'materias' %}" class="navLink">Materias</a>
+          </li>
+          <li class="navItem">
+            <a href="{% url 'nosotros' %}" class="navLink">Nosotros</a>
+          </li>
+          <li class="navItem">
+            {% if user.is_authenticated %}
+              <div class="user-menu">
+                <div class="user-menu-trigger">
+                  {% if user.get_imagen_perfil_url %}
+                    <img src="{{ user.get_imagen_perfil_url }}" alt="Perfil">
+                  {% else %}
+                    <div class="user-avatar">{{ user.username|first|upper }}</div>
+                  {% endif %}
+                  <span>{{ user.username }}</span>
+                  <i class="bx bx-chevron-down"></i>
+                </div>
+                <div class="user-menu-dropdown">
+                  <a href="{% url 'perfil' %}" class="dropdown-item">
+                    <i class="bx bx-user"></i>Perfil
+                  </a>
+                  <a href="{% url 'logout' %}" class="dropdown-item">
+                    <i class="bx bx-log-out"></i>Cerrar Sesión
+                  </a>
+                </div>
+              </div>
+            {% else %}
+              <a href="{% url 'login' %}" class="navLink">Registro</a>
+            {% endif %}
+          </li>
+        </ul>
+        <div class="navclose" id="nav-close">
+          <i class="bx bx-x"></i>
+        </div>
+      </div>
+      <div class="navToggle" id="nav-toggle">
+        <i class="bx bx-grid-alt"></i>
+      </div>
+    </nav>
+  </header>
+  <main class="main">
+    
+    <!--SECCIÓN INTRODUCCIÓN MATEMÁTICAS-->
+    <section class="section matematica-intro-section">
+      <h2 class="sectiontitle"><b>¡Juegos Matemáticos!</b></h2>
+      <div class="matematica-intro-container container grid">
+        <div class="matematica-intro-bubble">
+          <div class="thought-bubble-math">
+            <p class="thought-text-math">Las matemáticas son fundamentales en nuestra vida diaria. Nos ayudan a desarrollar el pensamiento lógico, la capacidad de resolver problemas y a entender el mundo que nos rodea. Desde calcular el cambio en una tienda hasta entender los patrones de la naturaleza, las matemáticas están en todas partes. Aprender matemáticas a través de juegos hace que el proceso sea divertido, interactivo y memorable. ¡Conviértete en un experto mientras te diviertes!</p>
+          </div>
+        </div>
+        <div class="matematica-intro-image">
+          <img src="{% static 'img/matep1.png' %}" alt="Personaje de Matemáticas" class="matematica-personaje">
+        </div>
+      </div>
+    </section>
+
+    <!--SECCIÓN DE JUEGOS Y PROGRESO-->
+    <section class="section juegos-progreso-section">
+      <h2 class="sectiontitle"><b>Tu Camino de Aprendizaje</b></h2>
+      <p class="progreso-subtitle">Explora todos los juegos de matemáticas y pon a prueba tus conocimientos en el examen final.</p>
+      
+      <div class="progreso-wrapper container">
+        <!-- Stickers matemáticos -->
+        <img src="{% static 'img/smat/matstk1.png' %}" alt="Sticker matemático" class="math-sticker sticker-1">
+        <img src="{% static 'img/smat/matstk2.png' %}" alt="Sticker matemático" class="math-sticker sticker-2">
+        <img src="{% static 'img/smat/matstk3.png' %}" alt="Sticker matemático" class="math-sticker sticker-3">
+        <img src="{% static 'img/smat/matstk4.png' %}" alt="Sticker matemático" class="math-sticker sticker-4">
+        <img src="{% static 'img/smat/matstk5.png' %}" alt="Sticker matemático" class="math-sticker sticker-5">
+        <img src="{% static 'img/smat/matstk6.png' %}" alt="Sticker matemático" class="math-sticker sticker-6">
+        
+        <div class="progreso-container">
+          <!-- Juego 1 -->
+          <div class="juego-progreso-item {% if juegos_desbloqueados.1 %}desbloqueado{% else %}bloqueado{% endif %}">
+            <div class="juego-progreso-numero">1</div>
+            <div class="juego-progreso-card">
+              <div class="juego-progreso-icon">
+                <i class="bx bx-math"></i>
+              </div>
+              <h3 class="juego-progreso-title">Secuencias Numéricas</h3>
+              <p class="juego-progreso-descripcion">Completa secuencias numéricas y domina los patrones.</p>
+              {% if juegos_desbloqueados.1 %}
+                <a href="{% url 'matjuego1' %}" class="juego-progreso-button">
+                  <i class="bx bx-play-circle"></i>
+                  JUGAR
+                </a>
+              {% else %}
+                <div class="juego-progreso-button bloqueado">
+                  <i class="bx bx-lock"></i>
+                  BLOQUEADO
+                </div>
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- Línea de conexión -->
+          <div class="progreso-linea"></div>
+
+          <!-- Juego 2 -->
+          <div class="juego-progreso-item {% if juegos_desbloqueados.2 %}desbloqueado{% else %}bloqueado{% endif %}">
+            <div class="juego-progreso-numero">2</div>
+            <div class="juego-progreso-card">
+              <div class="juego-progreso-icon">
+                <i class="bx bx-plus-medical"></i>
+              </div>
+              <h3 class="juego-progreso-title">El Gusano Comelón de Números</h3>
+              <p class="juego-progreso-descripcion">Guía al gusano para comer la respuesta correcta a las operaciones matemáticas.</p>
+              {% if juegos_desbloqueados.2 %}
+                <a href="{% url 'matjuego2' %}" class="juego-progreso-button">
+                  <i class="bx bx-play-circle"></i>
+                  JUGAR
+                </a>
+              {% else %}
+                <div class="juego-progreso-button bloqueado">
+                  <i class="bx bx-lock"></i>
+                  BLOQUEADO
+                </div>
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- Línea de conexión -->
+          <div class="progreso-linea"></div>
+
+          <!-- Juego 3 -->
+          <div class="juego-progreso-item {% if juegos_desbloqueados.3 %}desbloqueado{% else %}bloqueado{% endif %}">
+            <div class="juego-progreso-numero">3</div>
+            <div class="juego-progreso-card">
+              <div class="juego-progreso-icon">
+                <i class="bx bx-car"></i>
+              </div>
+              <h3 class="juego-progreso-title">Carreras Matemáticas</h3>
+              <p class="juego-progreso-descripcion">Competirás en una carrera emocionante mientras resuelves problemas matemáticos.</p>
+              {% if juegos_desbloqueados.3 %}
+                <a href="{% url 'matjuego3' %}" class="juego-progreso-button">
+                  <i class="bx bx-play-circle"></i>
+                  JUGAR
+                </a>
+              {% else %}
+                <div class="juego-progreso-button bloqueado">
+                  <i class="bx bx-lock"></i>
+                  BLOQUEADO
+                </div>
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- Línea de conexión -->
+          <div class="progreso-linea"></div>
+
+          <!-- Juego 4 -->
+          <div class="juego-progreso-item {% if juegos_desbloqueados.4 %}desbloqueado{% else %}bloqueado{% endif %}">
+            <div class="juego-progreso-numero">4</div>
+            <div class="juego-progreso-card">
+              <div class="juego-progreso-icon">
+                <i class="bx bx-brain"></i>
+              </div>
+              <h3 class="juego-progreso-title">Memoria Matemática</h3>
+              <p class="juego-progreso-descripcion">Encuentra parejas de números que den un resultado específico usando tu memoria.</p>
+              {% if juegos_desbloqueados.4 %}
+                <a href="{% url 'matjuego4' %}" class="juego-progreso-button">
+                  <i class="bx bx-play-circle"></i>
+                  JUGAR
+                </a>
+              {% else %}
+                <div class="juego-progreso-button bloqueado">
+                  <i class="bx bx-lock"></i>
+                  BLOQUEADO
+                </div>
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- Línea de conexión -->
+          <div class="progreso-linea"></div>
+
+          <!-- Juego 5 -->
+          <div class="juego-progreso-item {% if juegos_desbloqueados.5 %}desbloqueado{% else %}bloqueado{% endif %}">
+            <div class="juego-progreso-numero">5</div>
+            <div class="juego-progreso-card">
+              <div class="juego-progreso-icon">
+                <i class="bx bx-shape-polygon"></i>
+              </div>
+              <h3 class="juego-progreso-title">Operaciones con Figuras</h3>
+              <p class="juego-progreso-descripcion">Realiza operaciones matemáticas usando los lados de las figuras geométricas.</p>
+              {% if juegos_desbloqueados.5 %}
+                <a href="{% url 'matjuego5' %}" class="juego-progreso-button">
+                  <i class="bx bx-play-circle"></i>
+                  JUGAR
+                </a>
+              {% else %}
+                <div class="juego-progreso-button bloqueado">
+                  <i class="bx bx-lock"></i>
+                  BLOQUEADO
+                </div>
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- Línea de conexión especial para el reto final -->
+          <div class="progreso-linea reto-linea"></div>
+
+          <!-- Reto Final -->
+          <div class="juego-progreso-item reto-final {% if examen_desbloqueado %}desbloqueado{% else %}bloqueado{% endif %}">
+            <div class="juego-progreso-numero reto-numero">
+              <i class="bx bx-trophy"></i>
+            </div>
+            <div class="juego-progreso-card reto-card">
+              <div class="reto-imagen">
+                <img src="{% static 'img/exmat.png' %}" alt="Reto Final" class="reto-img">
+              </div>
+              <h3 class="juego-progreso-title reto-title">Examen Final de Matemáticas</h3>
+              <p class="juego-progreso-descripcion">Prueba relámpago de conocimientos con 15 preguntas de todos los juegos.</p>
+              {% if examen_desbloqueado %}
+                <a href="{% url 'examat' %}" class="juego-progreso-button reto-button">
+                  <i class="bx bx-play-circle"></i>
+                  COMENZAR EXAMEN
+                </a>
+              {% else %}
+                <div class="juego-progreso-button reto-button bloqueado">
+                  <i class="bx bx-lock"></i>
+                  COMPLETA EL JUEGO 5
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!--FOOTER-->
+  <footer class="footer section">
+    <div class="footercontainer container grid">
+      <div>
+        <a href="{% url 'index' %}" class="footerL">
+          <img src="{% static 'img/log.png' %}" alt="logo" class="footerL-img" />
+          EduRetoSV
+        </a>
+        <p class="footerdescription">Aprende jugando, descubre tu mundo. Plataforma educativa interactiva para niños y niñas.</p>
+          <div class="footersocial">
+            <a href="https://www.facebook.com/share/1Be6FAr6G5/" target="_blank" rel="noopener noreferrer" class="footersocial-link" title="Síguenos en Facebook">
+              <i class="bx bxl-facebook"></i>
+            </a>
+            <a href="https://www.instagram.com/edu__reto/#" target="_blank" rel="noopener noreferrer" class="footersocial-link" title="Síguenos en Instagram">
+              <i class="bx bxl-instagram"></i>
+            </a>
+            <a href="https://wa.me/50370365911" target="_blank" rel="noopener noreferrer" class="footersocial-link" title="Contáctanos por WhatsApp">
+              <i class="bx bxl-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="footertitle">Materias</h3>
+          <ul class="footerlinks">
+            <li><a href="{% url 'matematica' %}" class="footerlink">Matemáticas</a></li>
+            <li><a href="{% url 'ciencia' %}" class="footerlink">Ciencias</a></li>
+            <li><a href="{% url 'gramatica' %}" class="footerlink">Gramática</a></li>
+            <li><a href="{% url 'ingles' %}" class="footerlink">Inglés</a></li>
+            <li><a href="{% url 'materias' %}" class="footerlink">Ver Todas</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="footertitle">Navegación</h3>
+          <ul class="footerlinks">
+            <li><a href="{% url 'index' %}" class="footerlink">Inicio</a></li>
+            <li><a href="{% url 'materias' %}" class="footerlink">Materias</a></li>
+            <li><a href="{% url 'nosotros' %}" class="footerlink">Nosotros</a></li>
+            <li><a href="{% url 'edureto1' %}" class="footerlink">Reto Final</a></li>
+            <li><a href="{% url 'login' %}" class="footerlink">Registro</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="footertitle">Nosotros</h3>
+          <ul class="footerlinks">
+            <li><a href="{% url 'nosotros' %}#historia" class="footerlink">Nuestra Historia</a></li>
+            <li><a href="{% url 'nosotros' %}#mision" class="footerlink">Misión</a></li>
+            <li><a href="{% url 'nosotros' %}#valores" class="footerlink">Valores</a></li>
+            <li><a href="{% url 'nosotros' %}#equipo" class="footerlink">Equipo</a></li>
+          </ul>
+        </div>
+    </div>
+    <span class="footercopy">&#169; EduRetoSV 2025. Todos los derechos reservados.</span>
+  </footer>
+  <!--JAVASCRIPT-->
+  <script src="{% static 'js/scrollreveal.min.js' %}"></script>
+  <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+  <script src="{% static 'js/matematicas.js' %}"></script>
+  <script>
+    // Dropdown menu functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const userMenuTrigger = document.querySelector('.user-menu-trigger');
+      const userMenuDropdown = document.querySelector('.user-menu-dropdown');
+      
+      if (userMenuTrigger && userMenuDropdown) {
+        userMenuTrigger.addEventListener('click', function(e) {
+          e.stopPropagation();
+          e.preventDefault();
+          userMenuDropdown.classList.toggle('show');
+        });
+        
+        // Cerrar dropdown al hacer clic fuera
+        document.addEventListener('click', function(e) {
+          if (!userMenuTrigger.contains(e.target) && !userMenuDropdown.contains(e.target)) {
+            userMenuDropdown.classList.remove('show');
+          }
+        });
+        
+        // Cerrar dropdown al hacer clic en un enlace del dropdown
+        const dropdownItems = document.querySelectorAll('.dropdown-item');
+        dropdownItems.forEach(item => {
+          item.addEventListener('click', function() {
+            userMenuDropdown.classList.remove('show');
+          });
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>
+

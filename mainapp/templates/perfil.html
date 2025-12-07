@@ -1,0 +1,984 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-WBJ2PWNG');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="{% static 'img/log.png' %}" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <title>Mi Perfil | EduRetoSV</title>
+  <style>
+    /* Estilos para el menú de usuario */
+    .user-menu {
+      position: relative;
+    }
+    
+    .user-menu-trigger {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.5rem;
+      transition: background 0.3s;
+    }
+    
+    .user-menu-trigger:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .user-menu-trigger img,
+    .user-avatar {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgb(42, 58, 107);
+      color: #fff;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    
+    .user-avatar {
+      text-transform: uppercase;
+    }
+    
+    .user-menu-trigger span {
+      color: #fff;
+      font-weight: 500;
+      text-transform: none;
+    }
+    
+    .user-menu-trigger i {
+      color: #fff;
+      font-size: 1.2rem;
+    }
+    
+    .user-menu-dropdown {
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      right: 0;
+      background: rgb(42, 58, 107);
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      min-width: 200px;
+      display: none;
+      z-index: 10000;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(-10px) scale(0.95);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+    }
+    
+    .user-menu-dropdown.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: all;
+    }
+    
+    .user-menu-dropdown .dropdown-item {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      color: #fff;
+      text-decoration: none;
+      transition: background 0.3s;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      font-weight: 500;
+      transform: translateX(-10px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    
+    .user-menu-dropdown.show .dropdown-item {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    
+    .user-menu-dropdown.show .dropdown-item:nth-child(1) {
+      transition-delay: 0.1s;
+    }
+    
+    .user-menu-dropdown.show .dropdown-item:nth-child(2) {
+      transition-delay: 0.2s;
+    }
+    
+    .user-menu-dropdown .dropdown-item:last-child {
+      border-bottom: none;
+    }
+    
+    .user-menu-dropdown .dropdown-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .user-menu-dropdown .dropdown-item i {
+      margin-right: 0.75rem;
+      font-size: 1.2rem;
+      color: #fff;
+    }
+    
+    /* Estilos para mensajes */
+    .message-container {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      z-index: 10000;
+      max-width: 400px;
+      animation: slideIn 0.3s ease-out;
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    
+    .message-alert {
+      padding: 1.25rem 1.5rem;
+      margin: 10px 0;
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      font-weight: 600;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      animation: fadeOut 0.5s ease-out 4.5s forwards;
+    }
+    
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        transform: translateX(100%);
+      }
+    }
+    
+    .message-success {
+      background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+      color: white;
+      border-left: 4px solid #2e7d32;
+    }
+    
+    .message-error {
+      background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+      color: white;
+      border-left: 4px solid #c62828;
+    }
+    
+    .message-icon {
+      font-size: 1.5rem;
+    }
+    
+    @media (min-width: 768px) {
+      .navList {
+        flex-direction: row;
+        column-gap: 2rem;
+      }
+      
+      .navM {
+        position: static;
+        width: auto;
+        background: transparent;
+        padding: 0;
+      }
+    }
+    
+    /* Estilos del perfil */
+    .profile-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+      padding-top: 5rem;
+    }
+    
+    .profile-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .profile-image-container {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+    }
+    
+    .profile-image,
+    .profile-avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #00c9d2;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .profile-avatar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgb(42, 58, 107);
+      color: #fff;
+      font-weight: 700;
+      font-size: 3rem;
+      text-transform: uppercase;
+    }
+    
+    .profile-image-upload {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background: #00c9d2;
+      color: white;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: 3px solid white;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      transition: background 0.3s;
+    }
+    
+    .profile-image-upload:hover {
+      background: #0d82a3;
+    }
+    
+    .profile-image-upload input {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+    
+    .profile-info {
+      background: rgb(42, 57, 106);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .profile-info-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .profile-info-item:last-child {
+      border-bottom: none;
+    }
+    
+    .profile-info-label {
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .profile-info-value {
+      color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .progress-section {
+      background: rgb(42, 57, 106);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .examenes-section {
+      background: rgb(42, 57, 106);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .examenes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    
+    .examen-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .examen-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      background: rgba(255, 255, 255, 0.15);
+    }
+    
+    .examen-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    
+    .examen-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .examen-status {
+      padding: 0.25rem 0.75rem;
+      border-radius: 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+    
+    .examen-status.aprobado {
+      background: rgba(76, 175, 80, 0.3);
+      color: #4caf50;
+      border: 1px solid #4caf50;
+    }
+    
+    .examen-status.no-aprobado {
+      background: rgba(244, 67, 54, 0.3);
+      color: #f44336;
+      border: 1px solid #f44336;
+    }
+    
+    .examen-info {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .examen-info strong {
+      color: #fff;
+      font-weight: 600;
+    }
+    
+    .examen-fecha {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+    }
+    
+    .no-examenes {
+      text-align: center;
+      padding: 2rem;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.1rem;
+    }
+    
+    .progress-item {
+      margin-bottom: 1.5rem;
+    }
+    
+    .progress-item:last-child {
+      margin-bottom: 0;
+    }
+    
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    
+    .progress-title {
+      font-weight: 600;
+      color: #fff;
+    }
+    
+    .progress-percentage {
+      color: #00c9d2;
+      font-weight: 600;
+    }
+    
+    .progress-bar-container {
+      width: 100%;
+      height: 20px;
+      background: #e0e0e0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #00c9d2, #0d82a3);
+      border-radius: 10px;
+      transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 600;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .progress-bar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: shimmer 2s infinite;
+    }
+    
+    @keyframes shimmer {
+      0% {
+        left: -100%;
+      }
+      100% {
+        left: 100%;
+      }
+    }
+    
+    .chart-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 2rem 0;
+      height: 300px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBJ2PWNG"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <!--Header-->
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="{% url 'index' %}" class="navL">
+        <img src="{% static 'img/log.png' %}" alt="favicon" class="navL-img" />EduRetoSV</a>
+
+      <div class="navM" id="nav-menu">
+        <ul class="navList">
+          <li class="navItem">
+            <a href="{% url 'index' %}" class="navLink">Inicio</a>
+          </li>
+          <li class="navItem">
+            <a href="{% url 'materias' %}" class="navLink">Materias</a>
+          </li>
+          <li class="navItem">
+            <a href="{% url 'nosotros' %}" class="navLink">Nosotros</a>
+          </li>
+          <li class="navItem">
+            {% if user.is_authenticated %}
+              <div class="user-menu">
+                <div class="user-menu-trigger">
+                  {% if user.get_imagen_perfil_url %}
+                    <img src="{{ user.get_imagen_perfil_url }}" alt="Perfil">
+                  {% else %}
+                    <div class="user-avatar">{{ user.username|first|upper }}</div>
+                  {% endif %}
+                  <span>{{ user.username }}</span>
+                  <i class="bx bx-chevron-down"></i>
+                </div>
+                <div class="user-menu-dropdown">
+                  <a href="{% url 'perfil' %}" class="dropdown-item">
+                    <i class="bx bx-user"></i>Perfil
+                  </a>
+                  <a href="{% url 'logout' %}" class="dropdown-item">
+                    <i class="bx bx-log-out"></i>Cerrar Sesión
+                  </a>
+                </div>
+              </div>
+            {% else %}
+              <a href="{% url 'login' %}" class="navLink">Registro</a>
+            {% endif %}
+          </li>
+        </ul>
+
+        <div class="navclose" id="nav-close">
+          <i class="bx bx-x"></i>
+        </div>
+      </div>
+
+      <div class="navToggle" id="nav-toggle">
+        <i class="bx bx-grid-alt"></i>
+      </div>
+    </nav>
+  </header>
+
+  <main class="main">
+    <!--Mensajes-->
+    {% if messages %}
+      <div class="message-container">
+        {% for message in messages %}
+          <div class="message-alert {% if message.tags == 'success' %}message-success{% else %}message-error{% endif %}">
+            <i class="bx {% if message.tags == 'success' %}bx-check-circle{% else %}bx-error-circle{% endif %} message-icon"></i>
+            <span>{{ message }}</span>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <!--PERFIL-->
+    <section class="section profile-container">
+      <div class="profile-header" data-aos="fade-down" data-aos-duration="800">
+        <h2 class="sectiontitle">Mi Perfil</h2>
+        
+        <div class="profile-image-container" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="200">
+          {% if user.get_imagen_perfil_url %}
+            <img src="{{ user.get_imagen_perfil_url }}" 
+                 alt="Imagen de perfil" 
+                 class="profile-image" 
+                 id="profile-image-preview">
+          {% else %}
+            <div class="profile-avatar" id="profile-image-preview">{{ user.username|first|upper }}</div>
+          {% endif %}
+          <form method="POST" enctype="multipart/form-data" id="upload-form" style="display: none;">
+            {% csrf_token %}
+            <input type="file" name="imagen_perfil" id="imagen_perfil" accept="image/*">
+          </form>
+          <div class="profile-image-upload" onclick="document.getElementById('imagen_perfil').click();">
+            <i class="bx bx-camera"></i>
+          </div>
+        </div>
+        
+        <h3 style="color: #fff; margin-bottom: 0.5rem; font-size: 1.5rem;">{{ user.username }}</h3>
+        {% if user.email %}
+          <p style="color: rgba(255, 255, 255, 0.8);">{{ user.email }}</p>
+        {% endif %}
+      </div>
+
+      <!--Información de la cuenta-->
+      <div class="profile-info" data-aos="fade-up" data-aos-duration="800">
+        <h3 class="sectiontitle" style="font-size: 1.5rem; margin-bottom: 1.5rem; color: #fff;">Información de la Cuenta</h3>
+        <div class="profile-info-item">
+          <span class="profile-info-label">Fecha de Registro:</span>
+          <span class="profile-info-value">{{ user.fecha_registro|date:"d/m/Y" }}</span>
+        </div>
+        <div class="profile-info-item">
+          <span class="profile-info-label">Nombre de Usuario:</span>
+          <span class="profile-info-value">{{ user.username }}</span>
+        </div>
+        {% if user.email %}
+        <div class="profile-info-item">
+          <span class="profile-info-label">Correo Electrónico:</span>
+          <span class="profile-info-value">{{ user.email }}</span>
+        </div>
+        {% endif %}
+      </div>
+
+      <!--Progreso General-->
+      <div class="progress-section" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+        <h3 class="sectiontitle" style="font-size: 1.5rem; margin-bottom: 1.5rem; color: #fff;">Progreso General</h3>
+        <div class="chart-container">
+          <canvas id="progressChart"></canvas>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header">
+            <span class="progress-title">Progreso Total</span>
+            <span class="progress-percentage">{{ progreso_general }}%</span>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar-general" style="width: 0%;">{{ progreso_general }}%</div>
+          </div>
+        </div>
+      </div>
+
+      <!--Exámenes Completados-->
+      <div class="examenes-section" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+        <h3 class="sectiontitle" style="font-size: 1.5rem; margin-bottom: 1.5rem; color: #fff;">Exámenes Finalizados</h3>
+        {% if examenes_completados %}
+          <div class="examenes-grid">
+            {% if examenes_completados.matematicas %}
+              <div class="examen-card" data-aos="fade-up" data-aos-duration="600">
+                <div class="examen-header">
+                  <div class="examen-title">
+                    <span>📐</span>
+                    <span>Matemáticas</span>
+                  </div>
+                  <span class="examen-status {% if examenes_completados.matematicas.aprobado %}aprobado{% else %}no-aprobado{% endif %}">
+                    {% if examenes_completados.matematicas.aprobado %}✓ Aprobado{% else %}✗ No Aprobado{% endif %}
+                  </span>
+                </div>
+                <div class="examen-info">
+                  <strong>Puntuación:</strong> {{ examenes_completados.matematicas.puntuacion }}/15
+                </div>
+                <div class="examen-fecha">
+                  Completado: {{ examenes_completados.matematicas.fecha|date:"d/m/Y H:i" }}
+                </div>
+              </div>
+            {% endif %}
+            
+            {% if examenes_completados.ciencias %}
+              <div class="examen-card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">
+                <div class="examen-header">
+                  <div class="examen-title">
+                    <span>🔬</span>
+                    <span>Ciencias</span>
+                  </div>
+                  <span class="examen-status {% if examenes_completados.ciencias.aprobado %}aprobado{% else %}no-aprobado{% endif %}">
+                    {% if examenes_completados.ciencias.aprobado %}✓ Aprobado{% else %}✗ No Aprobado{% endif %}
+                  </span>
+                </div>
+                <div class="examen-info">
+                  <strong>Puntuación:</strong> {{ examenes_completados.ciencias.puntuacion }}/15
+                </div>
+                <div class="examen-fecha">
+                  Completado: {{ examenes_completados.ciencias.fecha|date:"d/m/Y H:i" }}
+                </div>
+              </div>
+            {% endif %}
+            
+            {% if examenes_completados.gramatica %}
+              <div class="examen-card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="200">
+                <div class="examen-header">
+                  <div class="examen-title">
+                    <span>📝</span>
+                    <span>Gramática</span>
+                  </div>
+                  <span class="examen-status {% if examenes_completados.gramatica.aprobado %}aprobado{% else %}no-aprobado{% endif %}">
+                    {% if examenes_completados.gramatica.aprobado %}✓ Aprobado{% else %}✗ No Aprobado{% endif %}
+                  </span>
+                </div>
+                <div class="examen-info">
+                  <strong>Puntuación:</strong> {{ examenes_completados.gramatica.puntuacion }}/15
+                </div>
+                <div class="examen-fecha">
+                  Completado: {{ examenes_completados.gramatica.fecha|date:"d/m/Y H:i" }}
+                </div>
+              </div>
+            {% endif %}
+            
+            {% if examenes_completados.ingles %}
+              <div class="examen-card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="300">
+                <div class="examen-header">
+                  <div class="examen-title">
+                    <span>🌐</span>
+                    <span>Inglés</span>
+                  </div>
+                  <span class="examen-status {% if examenes_completados.ingles.aprobado %}aprobado{% else %}no-aprobado{% endif %}">
+                    {% if examenes_completados.ingles.aprobado %}✓ Aprobado{% else %}✗ No Aprobado{% endif %}
+                  </span>
+                </div>
+                <div class="examen-info">
+                  <strong>Puntuación:</strong> {{ examenes_completados.ingles.puntuacion }}/15
+                </div>
+                <div class="examen-fecha">
+                  Completado: {{ examenes_completados.ingles.fecha|date:"d/m/Y H:i" }}
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        {% else %}
+          <div class="no-examenes">
+            <p>No has completado ningún examen aún. ¡Comienza a jugar y completa los exámenes para ver tu progreso aquí!</p>
+          </div>
+        {% endif %}
+      </div>
+
+      <!--Progreso por Módulos-->
+      <div class="progress-section" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+        <h3 class="sectiontitle" style="font-size: 1.5rem; margin-bottom: 1.5rem; color: #fff;">Progreso por Módulos</h3>
+        
+        <div class="progress-item" data-aos="fade-right" data-aos-duration="600" data-aos-delay="100">
+          <div class="progress-header">
+            <span class="progress-title">📐 Matemáticas</span>
+            <span class="progress-percentage">{{ progreso_matematica }}%</span>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar-matematica" style="width: 0%;">{{ progreso_matematica }}%</div>
+          </div>
+        </div>
+
+        <div class="progress-item" data-aos="fade-right" data-aos-duration="600" data-aos-delay="200">
+          <div class="progress-header">
+            <span class="progress-title">🔬 Ciencias</span>
+            <span class="progress-percentage">{{ progreso_ciencia }}%</span>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar-ciencia" style="width: 0%;">{{ progreso_ciencia }}%</div>
+          </div>
+        </div>
+
+        <div class="progress-item" data-aos="fade-right" data-aos-duration="600" data-aos-delay="300">
+          <div class="progress-header">
+            <span class="progress-title">📝 Gramática</span>
+            <span class="progress-percentage">{{ progreso_gramatica }}%</span>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar-gramatica" style="width: 0%;">{{ progreso_gramatica }}%</div>
+          </div>
+        </div>
+
+        <div class="progress-item" data-aos="fade-right" data-aos-duration="600" data-aos-delay="400">
+          <div class="progress-header">
+            <span class="progress-title">🌐 Inglés</span>
+            <span class="progress-percentage">{{ progreso_ingles }}%</span>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar-ingles" style="width: 0%;">{{ progreso_ingles }}%</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!--FOOTER-->
+  <footer class="footer section">
+    <div class="footercontainer container grid">
+      <div>
+        <a href="{% url 'index' %}" class="footerL">
+          <img src="{% static 'img/log.png' %}" alt="logo" class="footerL-img" />
+          EduRetoSV
+        </a>
+        <p class="footerdescription">Aprende jugando, descubre tu mundo. Plataforma educativa interactiva para niños y niñas.</p>
+        <div class="footersocial">
+          <a href="https://www.facebook.com/share/1Be6FAr6G5/" target="_blank" rel="noopener noreferrer" class="footersocial-link" title="Síguenos en Facebook">
+            <i class="bx bxl-facebook"></i>
+          </a>
+          <a href="https://www.instagram.com/edu__reto/#" target="_blank" rel="noopener noreferrer" class="footersocial-link" title="Síguenos en Instagram">
+            <i class="bx bxl-instagram"></i>
+          </a>
+          <a href="https://wa.me/50370365911" target="_blank" rel="noopener noreferrer" class="footersocial-link" title="Contáctanos por WhatsApp">
+            <i class="bx bxl-whatsapp"></i>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="footertitle">Materias</h3>
+        <ul class="footerlinks">
+          <li><a href="{% url 'matematica' %}" class="footerlink">Matemáticas</a></li>
+          <li><a href="{% url 'ciencia' %}" class="footerlink">Ciencias</a></li>
+          <li><a href="{% url 'gramatica' %}" class="footerlink">Gramática</a></li>
+          <li><a href="{% url 'ingles' %}" class="footerlink">Inglés</a></li>
+          <li><a href="{% url 'materias' %}" class="footerlink">Ver Todas</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="footertitle">Navegación</h3>
+        <ul class="footerlinks">
+          <li><a href="{% url 'index' %}" class="footerlink">Inicio</a></li>
+          <li><a href="{% url 'materias' %}" class="footerlink">Materias</a></li>
+          <li><a href="{% url 'nosotros' %}" class="footerlink">Nosotros</a></li>
+          <li><a href="{% url 'edureto1' %}" class="footerlink">Reto Final</a></li>
+          <li><a href="{% url 'login' %}" class="footerlink">Registro</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="footertitle">Nosotros</h3>
+        <ul class="footerlinks">
+          <li><a href="{% url 'nosotros' %}#historia" class="footerlink">Nuestra Historia</a></li>
+          <li><a href="{% url 'nosotros' %}#mision" class="footerlink">Misión</a></li>
+          <li><a href="{% url 'nosotros' %}#valores" class="footerlink">Valores</a></li>
+          <li><a href="{% url 'nosotros' %}#equipo" class="footerlink">Equipo</a></li>
+        </ul>
+      </div>
+    </div>
+    <span class="footercopy">&#169; EduRetoSV 2025. Todos los derechos reservados.</span>
+  </footer>
+
+  <!--JAVASCRIPT-->
+  <script src="{% static 'js/scrollreveal.min.js' %}"></script>
+  <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+  <!-- AOS Animation Library -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  
+  <script>
+    // Inicializar AOS
+    if (typeof AOS !== 'undefined') {
+      AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true,
+        offset: 100
+      });
+    }
+    
+    // El dropdown del menú de usuario se maneja en main.js
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      // Ocultar mensajes después de 5 segundos
+      var messageAlerts = document.querySelectorAll('.message-alert');
+      messageAlerts.forEach(function(alert) {
+        setTimeout(function() {
+          alert.style.display = 'none';
+        }, 5000);
+      });
+      
+      // Subida de imagen de perfil
+      var imagenInput = document.getElementById('imagen_perfil');
+      var imagenPreview = document.getElementById('profile-image-preview');
+      var uploadForm = document.getElementById('upload-form');
+      
+      if (imagenInput && imagenPreview && uploadForm) {
+        imagenInput.addEventListener('change', function(e) {
+          var file = e.target.files[0];
+          if (file) {
+            // Validar tipo
+            var validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+            if (!validTypes.includes(file.type)) {
+              alert('Por favor, selecciona una imagen válida (JPG, PNG, GIF o WEBP)');
+              this.value = '';
+              return;
+            }
+            
+            // Validar tamaño (5MB)
+            var maxSize = 5 * 1024 * 1024;
+            if (file.size > maxSize) {
+              alert('La imagen es demasiado grande. Por favor, selecciona una imagen menor a 5MB');
+              this.value = '';
+              return;
+            }
+            
+            // Preview
+            var reader = new FileReader();
+            reader.onload = function(e) {
+              if (imagenPreview.tagName === 'DIV') {
+                var img = document.createElement('img');
+                img.src = e.target.result;
+                img.alt = 'Imagen de perfil';
+                img.className = 'profile-image';
+                img.id = 'profile-image-preview';
+                imagenPreview.parentNode.replaceChild(img, imagenPreview);
+              } else {
+                imagenPreview.src = e.target.result;
+              }
+            };
+            reader.readAsDataURL(file);
+            
+            // Enviar formulario
+            uploadForm.submit();
+          }
+        });
+      }
+      
+      // Gráfico de progreso con Chart.js
+      var ctx = document.getElementById('progressChart');
+      if (ctx && typeof Chart !== 'undefined') {
+        var progressData = parseInt('{{ progreso_general|default:0 }}') || 0;
+        
+        new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Completado', 'Pendiente'],
+            datasets: [{
+              data: [progressData, Math.max(0, 100 - progressData)],
+              backgroundColor: [
+                'rgba(0, 201, 210, 0.8)',
+                'rgba(238, 238, 238, 0.3)'
+              ],
+              borderColor: [
+                'rgba(0, 201, 210, 1)',
+                'rgba(238, 238, 238, 0.5)'
+              ],
+              borderWidth: 3
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+              legend: {
+                display: false
+              },
+              tooltip: {
+                enabled: true
+              }
+            },
+            cutout: '70%',
+            animation: {
+              animateRotate: true,
+              duration: 2000
+            }
+          },
+          plugins: [{
+            id: 'centerText',
+            beforeDraw: function(chart) {
+              var width = chart.width;
+              var height = chart.height;
+              var ctx = chart.ctx;
+              
+              ctx.restore();
+              var fontSize = Math.max(12, (height / 114) * 16);
+              ctx.font = 'bold ' + fontSize + 'px Poppins, sans-serif';
+              ctx.textBaseline = 'middle';
+              ctx.textAlign = 'center';
+              
+              var text = progressData + '%';
+              var textX = width / 2;
+              var textY = height / 2;
+              
+              ctx.fillStyle = '#2c3c5c';
+              ctx.fillText(text, textX, textY);
+              ctx.save();
+            }
+          }]
+        });
+      }
+      
+      // Animar barras de progreso
+      setTimeout(function() {
+        var progressBars = {
+          'general': parseInt('{{ progreso_general|default:0 }}') || 0,
+          'matematica': parseInt('{{ progreso_matematica|default:0 }}') || 0,
+          'ciencia': parseInt('{{ progreso_ciencia|default:0 }}') || 0,
+          'gramatica': parseInt('{{ progreso_gramatica|default:0 }}') || 0,
+          'ingles': parseInt('{{ progreso_ingles|default:0 }}') || 0
+        };
+        
+        for (var key in progressBars) {
+          var bar = document.getElementById('progress-bar-' + key);
+          if (bar) {
+            var progress = progressBars[key] || 0;
+            if (progress >= 0 && progress <= 100) {
+              bar.style.width = progress + '%';
+            }
+          }
+        }
+      }, 300);
+    });
+  </script>
+</body>
+
+</html>
