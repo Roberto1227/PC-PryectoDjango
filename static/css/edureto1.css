@@ -1,0 +1,864 @@
+.reto-page {
+  padding-top: 6rem;
+  font-family: 'Comic Neue', 'Poppins', sans-serif;
+}
+
+.reto-hero-section {
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+}
+
+.reto-hero-card {
+  position: relative;
+  background: rgba(44, 60, 92, 0.9);
+  color: #fff;
+  border-radius: 1.5rem;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.reto-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(255, 215, 0, 0.2);
+  border: 2px solid rgba(255, 215, 0, 0.5);
+  padding: 0.75rem 2rem;
+  border-radius: 999px;
+  color: #ffd700;
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+}
+
+.reto-badge i {
+  font-size: 1.8rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.reto-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 1.5rem;
+  color: #fff;
+  font-weight: 900;
+}
+
+.reto-description {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  color: #fff;
+}
+
+.reto-description strong {
+  color: #ffd700;
+  font-weight: 700;
+}
+
+.reto-instructions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin: 2rem auto;
+  max-width: 900px;
+  align-items: center;
+}
+
+.reto-instructions-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reto-character-img {
+  width: 200px;
+  height: auto;
+  max-width: 100%;
+}
+
+.reto-instructions-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.2rem;
+}
+
+.rule-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
+  padding: 1rem 1.5rem;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.rule-item i {
+  font-size: 1.8rem;
+  color: #4fd1c5;
+}
+
+.rule-item strong {
+  color: #ffd700;
+}
+
+.reto-warning {
+  background: rgba(255, 193, 7, 0.2);
+  border: 2px solid rgba(255, 193, 7, 0.5);
+  border-radius: 1rem;
+  padding: 1rem 1.5rem;
+  margin: 2rem auto 0;
+  max-width: 700px;
+  color: #ffd700;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.reto-hero-actions {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.reto-btn {
+  border-radius: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+}
+
+.reto-btn-primary {
+  background: #00c9d2;
+  color: #fff;
+}
+
+.reto-btn-primary:hover {
+  background: #00b8c0;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 201, 210, 0.4);
+}
+
+.reto-btn.secondary {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.reto-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.reto-quiz-section {
+  display: none;
+  padding-bottom: 2rem;
+}
+
+.reto-quiz-section.active {
+  display: block;
+}
+
+.reto-quiz-wrapper {
+  background: rgba(44, 60, 92, 0.95);
+  color: #fff;
+  border-radius: 1.5rem;
+  padding: 1.5rem 1.5rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  border: 3px solid rgba(255, 255, 255, 0.15);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.reto-quiz-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.reto-status-pill {
+  flex: 1;
+  min-width: 140px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #fff;
+}
+
+.reto-status-pill i {
+  font-size: 1.5rem;
+  color: #4fd1c5;
+}
+
+.reto-status-pill span {
+  display: block;
+  font-size: 0.75rem;
+  opacity: 0.9;
+  margin-bottom: 0.2rem;
+}
+
+.reto-status-pill strong {
+  font-size: 1.1rem;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+  display: block;
+}
+
+.reto-jokers-container {
+  flex: 1;
+  min-width: 220px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.reto-jokers-label {
+  font-size: 0.75rem;
+  color: #ffd700;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.reto-jokers-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.reto-joker-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  padding: 0.6rem 0.4rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.25) 0%, rgba(255, 193, 7, 0.25) 100%);
+  border: 2px solid rgba(255, 215, 0, 0.6);
+  color: #ffd700;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.reto-joker-icon::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.reto-joker-icon:hover::before {
+  opacity: 1;
+}
+
+.reto-joker-icon.active {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.35) 0%, rgba(255, 193, 7, 0.35) 100%);
+  border-color: #ffd700;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5), inset 0 0 10px rgba(255, 215, 0, 0.2);
+  transform: scale(1.05);
+}
+
+.reto-joker-icon.active:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.6), inset 0 0 15px rgba(255, 215, 0, 0.3);
+}
+
+.reto-joker-icon.used {
+  background: linear-gradient(135deg, rgba(100, 100, 100, 0.15) 0%, rgba(80, 80, 80, 0.15) 100%);
+  border-color: rgba(100, 100, 100, 0.4);
+  color: rgba(200, 200, 200, 0.4);
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: scale(0.95);
+  filter: grayscale(100%);
+}
+
+.reto-joker-icon.used::before {
+  display: none;
+}
+
+.reto-joker-icon i {
+  font-size: 1.3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.reto-joker-icon span {
+  font-size: 0.65rem;
+  font-weight: 800;
+  position: relative;
+  z-index: 1;
+  letter-spacing: 0.5px;
+}
+
+.reto-joker-btn {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.3) 0%, rgba(255, 193, 7, 0.3) 100%);
+  color: #ffd700;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border: 2px solid rgba(255, 215, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.reto-joker-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.4) 0%, rgba(255, 193, 7, 0.4) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+}
+
+.reto-joker-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.reto-question-card {
+  background: rgba(15, 23, 42, 0.9);
+  border-radius: 1.25rem;
+  padding: 1.5rem 2rem;
+  border: 2px solid rgba(248, 250, 252, 0.1);
+  box-shadow: 0 15px 40px rgba(2, 6, 23, 0.5);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.reto-question-topic {
+  font-family: "Poppins", sans-serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 999px;
+  background: rgba(99, 102, 241, 0.2);
+  color: #c4b5fd;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(196, 181, 253, 0.3);
+}
+
+.reto-question-topic i {
+  font-size: 1.1rem;
+}
+
+.reto-question-text {
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1.5rem;
+  line-height: 1.3;
+}
+
+.reto-options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.reto-option-card {
+  border-radius: 1rem;
+  padding: 1.3rem 1.6rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  min-height: 90px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  text-align: left;
+  border: 3px solid transparent;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.reto-option-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.reto-option-card:hover:not(.disabled)::before {
+  left: 100%;
+}
+
+.reto-option-letter {
+  font-family: "Poppins", sans-serif;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.reto-option-card:hover:not(.disabled) .reto-option-letter {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.reto-option-text {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.4;
+  flex: 1;
+  font-weight: 700;
+}
+
+.reto-option-card.mint {
+  background: linear-gradient(135deg, rgb(72, 251, 186) 0%, rgb(52, 211, 153) 100%);
+  color: #064e3b;
+  box-shadow: 0 6px 25px rgba(72, 251, 186, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.reto-option-card.mint:hover:not(.disabled) {
+  box-shadow: 0 10px 35px rgba(72, 251, 186, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.reto-option-card.lime {
+  background: linear-gradient(135deg, rgb(103, 247, 33) 0%, rgb(84, 211, 27) 100%);
+  color: #1b3406;
+  box-shadow: 0 6px 25px rgba(103, 247, 33, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.reto-option-card.lime:hover:not(.disabled) {
+  box-shadow: 0 10px 35px rgba(103, 247, 33, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.reto-option-card.orange {
+  background: linear-gradient(135deg, rgb(248, 135, 40) 0%, rgb(234, 88, 12) 100%);
+  color: #3c1202;
+  box-shadow: 0 6px 25px rgba(248, 135, 40, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.reto-option-card.orange:hover:not(.disabled) {
+  box-shadow: 0 10px 35px rgba(248, 135, 40, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.reto-option-card.purple {
+  background: linear-gradient(135deg, rgb(160, 67, 173) 0%, rgb(139, 92, 246) 100%);
+  color: #fdf4ff;
+  box-shadow: 0 6px 25px rgba(160, 67, 173, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.reto-option-card.purple .reto-option-letter {
+  background: rgba(15, 23, 42, 0.3);
+  color: #fef9ff;
+}
+
+.reto-option-card.purple:hover:not(.disabled) {
+  box-shadow: 0 10px 35px rgba(160, 67, 173, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.reto-option-card:hover:not(.disabled) {
+  transform: translateY(-5px) scale(1.03);
+}
+
+.reto-option-card.disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+  pointer-events: none;
+  filter: grayscale(80%);
+  transform: scale(0.95);
+}
+
+.reto-option-card.selected {
+  border-color: #ffd700;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.7), 0 8px 25px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(255, 215, 0, 0.2);
+  transform: scale(1.08);
+  animation: selectedPulse 0.6s ease;
+}
+
+@keyframes selectedPulse {
+  0%, 100% {
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.7), 0 8px 25px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(255, 215, 0, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.9), 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 0 25px rgba(255, 215, 0, 0.3);
+  }
+}
+
+.reto-question-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.reto-submit-btn {
+  background: #00c9d2;
+  color: #fff;
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 201, 210, 0.3);
+  transition: all 0.3s ease;
+}
+
+.reto-submit-btn:hover {
+  background: #00b8c0;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 201, 210, 0.4);
+}
+
+.reto-results-section {
+  padding-bottom: 4rem;
+}
+
+.reto-results-card {
+  background: rgba(44, 60, 92, 0.95);
+  color: #fff;
+  border-radius: 1.5rem;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  border: 3px solid rgba(255, 255, 255, 0.15);
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.reto-results-header {
+  margin-bottom: 2rem;
+}
+
+.reto-results-header i {
+  font-size: 4rem;
+  color: #ffd700;
+  margin-bottom: 1rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.reto-results-header h2 {
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 0;
+}
+
+.reto-results-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.result-stat {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  display: block;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #fff;
+}
+
+.correct-stat {
+  color: #4fd1c5;
+}
+
+.incorrect-stat {
+  color: #f87171;
+}
+
+.reto-results-message {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.reto-results-actions {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.reto-results-actions .button {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .reto-hero-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .reto-instructions {
+    grid-template-columns: 1fr;
+  }
+
+  .reto-character-img {
+    width: 150px;
+  }
+
+  .reto-quiz-wrapper {
+    padding: 1rem 1rem;
+  }
+
+  .reto-quiz-header {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .reto-status-pill {
+    flex-direction: row;
+    align-items: center;
+    min-width: 100%;
+    padding: 0.6rem 0.8rem;
+  }
+
+  .reto-status-pill i {
+    font-size: 1.3rem;
+  }
+
+  .reto-status-pill strong {
+    font-size: 1rem;
+  }
+
+  .reto-jokers-container {
+    min-width: 100%;
+    padding: 0.6rem 0.8rem;
+  }
+
+  .reto-jokers-grid {
+    gap: 0.3rem;
+  }
+
+  .reto-joker-icon {
+    padding: 0.5rem 0.3rem;
+  }
+
+  .reto-joker-icon i {
+    font-size: 1.1rem;
+  }
+
+  .reto-joker-icon span {
+    font-size: 0.6rem;
+  }
+
+  .reto-question-card {
+    padding: 1.2rem 1.2rem;
+  }
+
+  .reto-question-text {
+    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .reto-options-grid {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .reto-option-card {
+    min-height: 75px;
+    padding: 1rem 1.2rem;
+    flex-direction: row;
+    gap: 0.8rem;
+  }
+
+  .reto-option-letter {
+    width: 38px;
+    height: 38px;
+    font-size: 0.9rem;
+  }
+
+  .reto-option-text {
+    font-size: 0.95rem;
+  }
+
+  .reto-results-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .reto-page {
+    padding-top: 4rem;
+  }
+
+  .reto-hero-card {
+    padding: 1.5rem 1rem;
+    border-radius: 1rem;
+  }
+
+  .reto-badge {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .reto-badge i {
+    font-size: 1.5rem;
+  }
+
+  .reto-title {
+    font-size: 1.75rem;
+  }
+
+  .reto-description {
+    font-size: 0.95rem;
+  }
+
+  .reto-character-img {
+    width: 120px;
+  }
+
+  .reto-quiz-wrapper {
+    padding: 0.75rem 0.75rem;
+  }
+
+  .reto-status-pill {
+    padding: 0.5rem 0.6rem;
+    font-size: 0.85rem;
+  }
+
+  .reto-status-pill i {
+    font-size: 1.1rem;
+  }
+
+  .reto-status-pill strong {
+    font-size: 0.9rem;
+  }
+
+  .reto-jokers-container {
+    padding: 0.5rem 0.6rem;
+  }
+
+  .reto-joker-icon {
+    padding: 0.4rem 0.25rem;
+  }
+
+  .reto-joker-icon i {
+    font-size: 1rem;
+  }
+
+  .reto-joker-icon span {
+    font-size: 0.55rem;
+  }
+
+  .reto-question-card {
+    padding: 1rem 1rem;
+  }
+
+  .reto-question-text {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .reto-options-grid {
+    gap: 0.6rem;
+  }
+
+  .reto-option-card {
+    min-height: 70px;
+    padding: 0.875rem 1rem;
+    gap: 0.6rem;
+  }
+
+  .reto-option-letter {
+    width: 35px;
+    height: 35px;
+    font-size: 0.85rem;
+  }
+
+  .reto-option-text {
+    font-size: 0.9rem;
+  }
+
+  .reto-submit-btn {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .reto-instructions {
+    grid-template-columns: 250px 1fr;
+  }
+}

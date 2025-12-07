@@ -1,0 +1,775 @@
+/* SECCIÓN INTRODUCCIÓN MATEMÁTICAS */
+.matematica-intro-section {
+  padding: 2rem 0 4rem;
+}
+
+.matematica-intro-container {
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.matematica-intro-bubble {
+  order: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.matematica-intro-image {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  order: 2;
+}
+
+.matematica-personaje {
+  width: 60%;
+  max-width: 300px;
+  border-radius: 0.5rem;
+  margin: 0 auto;
+}
+
+.thought-bubble-math {
+  position: relative;
+  background: #fff;
+  border-radius: 2rem;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), 
+              0 0 0 4px #A8E6CF,
+              inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+  text-align: center;
+  border: 3px solid #A8E6CF;
+  transform: rotate(-2deg);
+  animation: float-math-bubble 3s ease-in-out infinite;
+}
+
+.thought-bubble-math::before {
+  content: '';
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border: 3px solid #A8E6CF;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.thought-bubble-math::after {
+  content: '';
+  position: absolute;
+  right: -35px;
+  top: 45%;
+  width: 15px;
+  height: 15px;
+  background: #fff;
+  border: 3px solid #A8E6CF;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+@keyframes float-math-bubble {
+  0%, 100% {
+    transform: rotate(-2deg) translateY(0px);
+  }
+  50% {
+    transform: rotate(-2deg) translateY(-10px);
+  }
+}
+
+.thought-text-math {
+  color: #2c3c5c;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+  text-align: center;
+  font-family: 'Comic Neue', cursive;
+  text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.5px;
+  line-height: 1.4;
+}
+
+@media screen and (min-width: 768px) {
+  .matematica-intro-container {
+    grid-template-columns: 50% 50%;
+    gap: 2rem;
+    align-items: center;
+  }
+  
+  .matematica-intro-bubble {
+    order: 1;
+  }
+  
+  .matematica-intro-image {
+    order: 2;
+  }
+  
+  .matematica-personaje {
+    width: 70%;
+    max-width: 350px;
+  }
+  
+  .thought-bubble-math {
+    max-width: 90%;
+    padding: 1.8rem 2.2rem;
+    transform: rotate(-2deg);
+  }
+  
+  .thought-text-math {
+    font-size: 1.1rem;
+  }
+}
+
+/* SECCIÓN DE JUEGOS Y PROGRESO */
+.juegos-progreso-section {
+  padding: 2rem 0 4rem;
+}
+
+.progreso-subtitle {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #fff;
+  margin-bottom: 3rem;
+  padding: 0 1rem;
+}
+
+.progreso-wrapper {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.progreso-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Stickers matemáticos */
+.math-sticker {
+  position: absolute;
+  width: 80px;
+  height: auto;
+  z-index: 0;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  pointer-events: none;
+}
+
+.sticker-1 {
+  top: 5%;
+  left: 5%;
+  transform: rotate(-15deg);
+  animation: float-sticker-1 4s ease-in-out infinite;
+}
+
+.sticker-2 {
+  top: 25%;
+  right: 8%;
+  transform: rotate(20deg);
+  animation: float-sticker-2 4s ease-in-out infinite 0.8s;
+}
+
+.sticker-3 {
+  top: 45%;
+  left: 1%;
+  transform: rotate(-25deg);
+  animation: float-sticker-3 4s ease-in-out infinite 1.6s;
+}
+
+.sticker-4 {
+  top: 70%;
+  right: 5%;
+  transform: rotate(18deg);
+  animation: float-sticker-4 4s ease-in-out infinite 2.4s;
+}
+
+.sticker-5 {
+  top: 15%;
+  left: 8%;
+  transform: rotate(-20deg);
+  animation: float-sticker-5 4s ease-in-out infinite 3.2s;
+}
+
+.sticker-6 {
+  bottom: 12%;
+  right: 2%;
+  transform: rotate(22deg);
+  animation: float-sticker-6 4s ease-in-out infinite 4s;
+}
+
+
+@keyframes float-sticker-1 {
+  0%, 100% {
+    transform: translateY(0px) rotate(-15deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(-15deg);
+  }
+}
+
+@keyframes float-sticker-2 {
+  0%, 100% {
+    transform: translateY(0px) rotate(20deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(20deg);
+  }
+}
+
+@keyframes float-sticker-3 {
+  0%, 100% {
+    transform: translateY(0px) rotate(-25deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(-25deg);
+  }
+}
+
+@keyframes float-sticker-4 {
+  0%, 100% {
+    transform: translateY(0px) rotate(18deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(18deg);
+  }
+}
+
+@keyframes float-sticker-5 {
+  0%, 100% {
+    transform: translateY(0px) rotate(-20deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(-20deg);
+  }
+}
+
+@keyframes float-sticker-6 {
+  0%, 100% {
+    transform: translateY(0px) rotate(22deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(22deg);
+  }
+}
+
+
+.juego-progreso-item {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.juego-progreso-numero {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #A8E6CF 0%, #87CEEB 100%);
+  color: #2c3c5c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(168, 230, 207, 0.5);
+  margin-bottom: 1rem;
+  z-index: 2;
+  border: 3px solid #fff;
+}
+
+.juego-progreso-card {
+  background: rgba(44, 60, 92, 0.9);
+  border-radius: 1.5rem;
+  padding: 2rem 1.5rem;
+  width: 100%;
+  text-align: center;
+  border: 4px solid #A8E6CF;
+  box-shadow: 0 4px 20px rgba(168, 230, 207, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.juego-progreso-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(168, 230, 207, 0.5);
+}
+
+.juego-progreso-icon {
+  font-size: 3rem;
+  color: #A8E6CF;
+  margin-bottom: 1rem;
+}
+
+.juego-progreso-title {
+  font-size: 1.5rem;
+  color: #A8E6CF;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.juego-progreso-descripcion {
+  color: #fff;
+  font-size: 0.938rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.juego-progreso-button {
+  background: linear-gradient(135deg, #A8E6CF 0%, #87CEEB 100%);
+  color: #2c3c5c;
+  padding: 0.875rem 2rem;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 15px rgba(168, 230, 207, 0.4);
+  text-decoration: none;
+  width: 100%;
+}
+
+.juego-progreso-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(168, 230, 207, 0.6);
+  background: linear-gradient(135deg, #87CEEB 0%, #A8E6CF 100%);
+}
+
+.juego-progreso-button i {
+  font-size: 1.3rem;
+}
+
+/* Estados bloqueado */
+.bloqueado-card {
+  opacity: 0.6;
+  border-color: #666;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.bloqueado-card:hover {
+  transform: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.bloqueado-numero {
+  background: #666 !important;
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.bloqueado-icon {
+  color: #666 !important;
+}
+
+.bloqueado-button {
+  background: #666 !important;
+  color: #fff !important;
+  cursor: not-allowed !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+.bloqueado-button:hover {
+  transform: none !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Líneas de conexión */
+.progreso-linea {
+  width: 4px;
+  height: 40px;
+  background: linear-gradient(180deg, #A8E6CF 0%, #87CEEB 100%);
+  margin: 0.5rem 0;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(168, 230, 207, 0.3);
+}
+
+.reto-linea {
+  height: 50px;
+  background: linear-gradient(180deg, #A8E6CF 0%, #FFD700 100%);
+}
+
+/* Reto Final */
+.reto-final {
+  margin-top: 1rem;
+}
+
+.reto-numero {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  color: #2c3c5c;
+  font-size: 2rem;
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.5);
+}
+
+.reto-card {
+  border-color: #FFD700;
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+  background: rgba(44, 60, 92, 0.95);
+}
+
+.reto-imagen {
+  width: 100%;
+  height: 150px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(168, 230, 207, 0.2) 0%, rgba(255, 215, 0, 0.2) 100%);
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.reto-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.reto-title {
+  color: #FFD700;
+  font-size: 1.75rem;
+}
+
+.reto-button {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%) !important;
+  color: #2c3c5c !important;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4) !important;
+}
+
+.reto-button:hover {
+  background: linear-gradient(135deg, #FFA500 0%, #FFD700 100%) !important;
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6) !important;
+}
+
+/* Estadísticas de juego completado */
+.juego-stats-completed {
+  background: linear-gradient(135deg, rgba(84, 246, 195, 0.15) 0%, rgba(135, 206, 235, 0.15) 100%);
+  padding: 1rem;
+  border-radius: 12px;
+  margin: 0.75rem 0;
+  border: 2px solid rgba(84, 246, 195, 0.4);
+  box-shadow: 0 4px 15px rgba(84, 246, 195, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  background: rgba(84, 246, 195, 0.1);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+  background: rgba(84, 246, 195, 0.2);
+  transform: translateX(5px);
+}
+
+.stat-icon {
+  font-size: 24px;
+  color: #ffd700;
+  min-width: 24px;
+}
+
+.stat-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
+
+.stat-value {
+  font-size: 18px;
+  font-weight: bold;
+  color: #54f6c3;
+  text-shadow: 0 0 10px rgba(84, 246, 195, 0.5);
+}
+
+/* Responsive */
+@media screen and (min-width: 768px) {
+  .progreso-wrapper {
+    padding: 3rem 0;
+  }
+  
+  .progreso-container {
+    max-width: 500px;
+  }
+  
+  .math-sticker {
+    width: 100px;
+  }
+  
+  .juego-progreso-card {
+    padding: 2.5rem 2rem;
+  }
+  
+  .reto-imagen {
+    height: 180px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .progreso-wrapper {
+    padding: 4rem 0;
+  }
+  
+  .progreso-container {
+    max-width: 500px;
+  }
+  
+  .math-sticker {
+    width: 120px;
+  }
+  
+  .juego-progreso-card {
+    padding: 3rem 2.5rem;
+  }
+  
+  .reto-imagen {
+    height: 200px;
+  }
+  
+  .sticker-1 {
+    left: 10%;
+  }
+  
+  .sticker-2 {
+    right: 12%;
+  }
+  
+  .sticker-3 {
+    left: 3%;
+  }
+  
+  .sticker-4 {
+    right: 10%;
+  }
+  
+  .sticker-5 {
+    left: 12%;
+  }
+  
+  .sticker-6 {
+    right: 5%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .math-sticker {
+    width: 60px;
+    opacity: 0.7;
+  }
+  
+  .sticker-1 {
+    top: 2%;
+    left: 2%;
+  }
+  
+  .sticker-2 {
+    top: 20%;
+    right: 2%;
+  }
+  
+  .sticker-3 {
+    top: 42%;
+    left: 1%;
+  }
+  
+  .sticker-4 {
+    top: 65%;
+    right: 2%;
+  }
+  
+  .sticker-5 {
+    top: 12%;
+    left: 3%;
+  }
+  
+  .sticker-6 {
+    bottom: 8%;
+    right: 2%;
+  }
+}
+
+.juegos-subtitle {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #fff;
+  margin-bottom: 3rem;
+  padding: 0 1rem;
+}
+
+.juegos-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  padding-top: 1rem;
+}
+
+.juego-card {
+  background: rgba(44, 60, 92, 0.9);
+  border-radius: 1.5rem;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 4px solid #A8E6CF;
+  box-shadow: 0 4px 20px rgba(168, 230, 207, 0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+.juego-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 10px 40px rgba(168, 230, 207, 0.6);
+}
+
+.juego-image {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #A8E6CF 0%, #87CEEB 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.juego-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.juego-card:hover .juego-img {
+  transform: scale(1.1);
+}
+
+.juego-content {
+  padding: 2rem 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex-grow: 1;
+}
+
+.juego-title {
+  font-size: 1.5rem;
+  color: #A8E6CF;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.juego-description {
+  color: #fff;
+  line-height: 1.6;
+  font-size: 0.938rem;
+  flex-grow: 1;
+  margin: 0;
+}
+
+.juego-button {
+  background: linear-gradient(135deg, #A8E6CF 0%, #87CEEB 100%);
+  color: #2c3c5c;
+  padding: 0.875rem 2rem;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 15px rgba(168, 230, 207, 0.4);
+  margin-top: auto;
+}
+
+.juego-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(168, 230, 207, 0.6);
+  background: linear-gradient(135deg, #87CEEB 0%, #A8E6CF 100%);
+}
+
+.juego-button i {
+  font-size: 1.5rem;
+}
+
+/* Responsive */
+@media screen and (min-width: 768px) {
+  .matematica-hero-title {
+    font-size: 3.5rem;
+  }
+  
+  .matematica-hero-description {
+    font-size: 1.2rem;
+  }
+  
+  .matematica-hero-img {
+    width: 250px;
+  }
+  
+  .juegos-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+  
+  .juego-image {
+    height: 280px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .matematica-hero {
+    padding: 6rem 0 4rem;
+  }
+  
+  .matematica-hero-title {
+    font-size: 4rem;
+  }
+  
+  .juegos-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .juego-image {
+    height: 300px;
+  }
+  
+  .juego-content {
+    padding: 2.5rem 2rem;
+  }
+}

@@ -1,0 +1,256 @@
+/* Sección Hero Nosotros */
+.nosotros-hero-section {
+  padding-top: 2rem;
+}
+
+.nosotros-hero-container {
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nosotros-hero-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nosotros-hero-img {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  border-radius: 0.5rem;
+}
+
+.nosotros-title {
+  text-align: left;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  color: #fff;
+  font-weight: 600;
+}
+
+.nosotros-description {
+  color: #fff;
+  line-height: 1.8;
+  text-align: justify;
+  margin-bottom: 1.5rem;
+  font-size: 0.938rem;
+}
+
+/* Sección Misión */
+.nosotros-mision-section {
+  padding: 2rem 0 4rem;
+}
+
+.nosotros-mision-container {
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.mision-card {
+  background: rgba(44, 60, 92, 0.8);
+  border-radius: 1rem;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+}
+
+.mision-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.mision-icon {
+  font-size: 3rem;
+  color: #00c9d2;
+  margin-bottom: 1rem;
+}
+
+.mision-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  font-weight: 600;
+}
+
+.mision-description {
+  color: #fff;
+  line-height: 1.8;
+  text-align: center;
+  font-size: 0.938rem;
+  max-width: 100%;
+}
+
+/* Sección Valores */
+.nosotros-valores-section {
+  padding: 2rem 0 4rem;
+}
+
+.nosotros-valores-container {
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.valor-card {
+  background: rgba(44, 60, 92, 0.8);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.valor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.valor-card i {
+  font-size: 2.5rem;
+  color: #00c9d2;
+  margin-bottom: 1rem;
+}
+
+.valor-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: #fff;
+  font-weight: 600;
+}
+
+.valor-card p {
+  color: #fff;
+  line-height: 1.6;
+  font-size: 0.938rem;
+}
+
+/* Sección Equipo */
+.nosotros-equipo-section {
+  padding: 2rem 0 4rem;
+}
+
+.equipo-description {
+  color: #fff;
+  line-height: 1.8;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  font-size: 1rem;
+}
+
+.equipo-grid {
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.equipo-card {
+  background: rgba(44, 60, 92, 0.8);
+  border-radius: 1rem;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+}
+
+.equipo-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.equipo-icon {
+  font-size: 3rem;
+  color: #00c9d2;
+  margin-bottom: 1rem;
+}
+
+.equipo-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  font-weight: 600;
+}
+
+.equipo-card p {
+  color: #fff;
+  line-height: 1.8;
+  text-align: center;
+  font-size: 0.938rem;
+  max-width: 100%;
+}
+
+@media screen and (max-width: 480px) {
+  .nosotros-hero-img {
+    max-width: 100%;
+  }
+
+  .nosotros-title {
+    font-size: 1.5rem;
+  }
+
+  .nosotros-description {
+    font-size: 0.875rem;
+  }
+
+  .mision-card,
+  .valor-card,
+  .equipo-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .mision-title,
+  .valor-card h3,
+  .equipo-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .mision-description,
+  .valor-card p,
+  .equipo-card p {
+    font-size: 0.875rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .nosotros-hero-container {
+    grid-template-columns: 45% 55%;
+    gap: 2rem;
+  }
+
+  .nosotros-hero-img {
+    max-width: 700px;
+  }
+
+  .nosotros-mision-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .nosotros-valores-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .equipo-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .nosotros-hero-img {
+    max-width: 800px;
+  }
+
+  .nosotros-valores-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+

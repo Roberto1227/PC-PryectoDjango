@@ -1,0 +1,244 @@
+/* Prevenir scroll cuando el modal está visible */
+body.modal-open {
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* Estilos del modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #2c3c5c 0%, #0d82a3 50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.modal-container {
+  background: rgb(18, 55, 103);
+  border-radius: 2rem;
+  padding: 1.5rem;
+  max-width: 800px;
+  width: 100%;
+  box-shadow: none;
+  border: 4px solid #9B59B6;
+  position: relative;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  pointer-events: auto;
+}
+
+.modal-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  align-items: center;
+  width: 100%;
+}
+
+.modal-personaje {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  order: 2;
+}
+
+.modal-personaje img {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+}
+
+.modal-bubble-container {
+  order: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.modal-bubble {
+  position: relative;
+  background: #fff;
+  border-radius: 1.5rem;
+  padding: 0.75rem 1.25rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3),
+    0 0 0 4px #9B59B6,
+    inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 95%;
+  width: 100%;
+  text-align: center;
+  border: 3px solid #9B59B6;
+  transform: rotate(2deg);
+  animation: float-ing-bubble 3s ease-in-out infinite;
+}
+
+@keyframes float-ing-bubble {
+  0%, 100% {
+    transform: rotate(2deg) translateY(0px);
+  }
+  50% {
+    transform: rotate(2deg) translateY(-10px);
+  }
+}
+
+.modal-bubble::before {
+  content: '';
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border: 3px solid #9B59B6;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.modal-bubble::after {
+  content: '';
+  position: absolute;
+  right: -35px;
+  top: 45%;
+  width: 15px;
+  height: 15px;
+  background: #fff;
+  border: 3px solid #9B59B6;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.modal-text {
+  color: #2c3c5c;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin: 0;
+  text-align: left;
+  font-family: 'Comic Neue', cursive;
+  text-shadow: none;
+  letter-spacing: 0.4px;
+  line-height: 1.3;
+}
+
+.modal-text h3 {
+  margin-bottom: 0.5rem !important;
+  color: #8E44AD;
+}
+
+.modal-text p {
+  margin-bottom: 0.5rem !important;
+}
+
+.modal-text ul {
+  margin-bottom: 0.5rem !important;
+}
+
+.modal-text li {
+  margin-bottom: 0.25rem !important;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 0;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+}
+
+.modal-button {
+  background: linear-gradient(135deg, rgb(84, 246, 195) 0%, #87CEEB 100%);
+  color: #2c3c5c;
+  padding: 0.875rem 2rem;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 15px rgba(135, 206, 235, 0.4);
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  text-shadow: none;
+}
+
+.modal-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(135, 206, 235, 0.6);
+  background: linear-gradient(135deg, #87CEEB 0%, rgb(84, 246, 195) 100%);
+}
+
+.modal-button i {
+  font-size: 1.3rem;
+}
+
+.modal-hidden {
+  display: none;
+}
+
+/* Contenido de la página */
+.page-content {
+  display: block;
+  padding: 2rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Responsive */
+@media screen and (min-width: 768px) {
+  .modal-container {
+    max-width: 850px;
+    padding: 1.75rem;
+  }
+
+  .modal-content {
+    grid-template-columns: 60% 40%;
+    gap: 1.5rem;
+  }
+
+  .modal-bubble-container {
+    order: 1;
+    gap: 0.75rem;
+  }
+
+  .modal-personaje {
+    order: 2;
+  }
+
+  .modal-text {
+    font-size: 0.8rem;
+  }
+
+  .modal-personaje img {
+    max-width: 300px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .modal-container {
+    padding: 1.5rem;
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+  }
+
+  .modal-button {
+    width: 100%;
+  }
+}
+
