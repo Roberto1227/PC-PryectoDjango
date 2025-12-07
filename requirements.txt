@@ -1,0 +1,9 @@
+Django>=4.2.0,<5.0.0
+
+# Dependencias opcionales para Google Authentication
+# Nota: El proyecto actualmente decodifica JWT manualmente.
+# Para una implementación más robusta, considera usar:
+# google-auth>=2.0.0
+# google-auth-oauthlib>=1.0.0
+# google-auth-httplib2>=0.1.0
+
